@@ -1,0 +1,3324 @@
+[
+    {
+        "id": "f6f2187d.f17ca8",
+        "type": "tab",
+        "label": "Waterkotte Wärmepumpe",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "3cc11d24.ff01a2",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "WARNING: please check you have started this container with a volume that is mounted to /data\\n otherwise any flow changes are lost when you redeploy or upgrade the container\\n (e.g. upgrade to a more recent node-red docker image).\\n  If you are using named volumes you can ignore this warning.\\n Double click or see info side panel to learn how to start Node-RED in Docker to save your work",
+        "info": "\nTo start docker with a bind mount volume (-v option), for example:\n\n```\ndocker run -it -p 1880:1880 -v /home/user/node_red_data:/data --name mynodered nodered/node-red\n```\n\nwhere `/home/user/node_red_data` is a directory on your host machine where you want to store your flows.\n\nIf you do not do this then you can experiment and redploy flows, but if you restart or upgrade the container the flows will be disconnected and lost. \n\nThey will still exist in a hidden data volume, which can be recovered using standard docker techniques, but that is much more complex than just starting with a named volume as described above.",
+        "x": 350,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "6ac51c7cb11eb303",
+        "type": "tcp request",
+        "z": "f6f2187d.f17ca8",
+        "name": "query data TCP",
+        "server": "raspberrypi",
+        "port": "3333",
+        "out": "time",
+        "ret": "buffer",
+        "splitc": "5000",
+        "newline": "",
+        "trim": false,
+        "tls": "",
+        "x": 720,
+        "y": 500,
+        "wires": [
+            [
+                "ad44d3d2dee81ee5"
+            ]
+        ]
+    },
+    {
+        "id": "e9eef35e08a5aeda",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "Every 2min",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "120",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 500,
+        "wires": [
+            [
+                "47a0115086a1a64e"
+            ]
+        ]
+    },
+    {
+        "id": "47a0115086a1a64e",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "Read Part 1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\"0x10\",\"0x02\",\"0x01\",\"0x15\",\"0x00\",\"0x00\",\"0x00\",\"0xf3\",\"0x10\",\"0x03\",\"0x7C\",\"0x32\"]",
+                "tot": "bin"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 290,
+        "y": 500,
+        "wires": [
+            [
+                "2b1adca662ad8c43"
+            ]
+        ]
+    },
+    {
+        "id": "ad44d3d2dee81ee5",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "doppel 10 durch eine ersetzen",
+        "func": "// Funktion zum Ersetzen von zwei aufeinanderfolgenden Hex 10-Werten durch eine einzelne Hex 10\nfunction replaceConsecutiveHex10(buffer) {\n    let outputBuffer = Buffer.alloc(0);\n    for (let i = 0; i < buffer.length; i++) {\n        if (buffer[i] === 0x10 && buffer[i + 1] === 0x10) {\n            outputBuffer = Buffer.concat([outputBuffer, Buffer.from([0x10])]);\n            i++; // Überspringe das nächste Hex 10\n        } else {\n            outputBuffer = Buffer.concat([outputBuffer, Buffer.from([buffer[i]])]);\n        }\n    }\n    return outputBuffer;\n}\n\n// Anwenden der Funktion auf den Eingangs-Buffer und Senden des Ergebnisses\nlet outputBuffer = replaceConsecutiveHex10(msg.payload);\nmsg.payload = outputBuffer;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 970,
+        "y": 500,
+        "wires": [
+            [
+                "cca3b1cc8ae1f0d3"
+            ]
+        ]
+    },
+    {
+        "id": "cca3b1cc8ae1f0d3",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload.length",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "250",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "141",
+                "vt": "str"
+            },
+            {
+                "t": "lt",
+                "v": "70",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 1190,
+        "y": 500,
+        "wires": [
+            [
+                "d2f10b835ce942c0"
+            ],
+            [
+                "7df376b8e6a732d1"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "d2f10b835ce942c0",
+        "type": "buffer-parser",
+        "z": "f6f2187d.f17ca8",
+        "name": "Offset=Adresse plus 5",
+        "data": "payload",
+        "dataType": "msg",
+        "specification": "spec",
+        "specificationType": "ui",
+        "items": [
+            {
+                "type": "int16be",
+                "name": "Version",
+                "offset": 5,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "floatle",
+                "name": "Temp-Aussen",
+                "offset": 13,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "floatle",
+                "name": "Temp-Aussen24h",
+                "offset": 17,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "floatle",
+                "name": "Temp-WW Soll",
+                "offset": 37,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "floatle",
+                "name": "Temp-WW Ist",
+                "offset": 41,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "floatle",
+                "name": "Temp-WQuelle-Ein",
+                "offset": 53,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "floatle",
+                "name": "Temp-WQuelle-Aus",
+                "offset": 57,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "floatle",
+                "name": "Temp-Ruecklauf Soll",
+                "offset": 25,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "floatle",
+                "name": "Temp-Ruecklauf Ist",
+                "offset": 29,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "floatle",
+                "name": "Betriebsstunden Kompressor",
+                "offset": 111,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "floatle",
+                "name": "Betriebsstunden Heizung",
+                "offset": 115,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "floatle",
+                "name": "Betriebsstunden WW",
+                "offset": 119,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "8bit",
+                "name": "Heizungläuft",
+                "offset": 228,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "8bit",
+                "name": "WWläuft",
+                "offset": 230,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "floatle",
+                "name": "Temp-Vorlauf Ist",
+                "offset": 33,
+                "length": 1,
+                "offsetbit": 1,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "floatle",
+                "name": "Betriebsstunden Stufe 2",
+                "offset": 123,
+                "length": 1,
+                "offsetbit": 1,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "8bit",
+                "name": "Kuehlungläuft",
+                "offset": 229,
+                "length": 1,
+                "offsetbit": 1,
+                "scale": "1",
+                "mask": ""
+            }
+        ],
+        "swap1": "",
+        "swap2": "",
+        "swap3": "",
+        "swap1Type": "swap",
+        "swap2Type": "swap",
+        "swap3Type": "swap",
+        "msgProperty": "payload",
+        "msgPropertyType": "str",
+        "resultType": "value",
+        "resultTypeType": "return",
+        "multipleResult": true,
+        "fanOutMultipleResult": true,
+        "setTopic": true,
+        "outputs": 17,
+        "x": 1400,
+        "y": 500,
+        "wires": [
+            [
+                "7ac38b833d7376f7"
+            ],
+            [
+                "f528f8823a5e9430"
+            ],
+            [
+                "815d24eb0d082882"
+            ],
+            [
+                "ba7ca063a2e9e5d4"
+            ],
+            [
+                "5f0677865b8f9bcb"
+            ],
+            [
+                "05a7aa2b7222c78f"
+            ],
+            [
+                "cfd50e16e47c4546"
+            ],
+            [
+                "b8bad4bf61e0376d"
+            ],
+            [
+                "16186c52cccb40ed"
+            ],
+            [
+                "8dfe7fa741fb1839"
+            ],
+            [
+                "43c2947d1b5e1775"
+            ],
+            [
+                "ae254be1e5e27d4f"
+            ],
+            [
+                "6b6422128af214b3"
+            ],
+            [
+                "920fb2dee0b57379"
+            ],
+            [
+                "5c77ee8573fef963"
+            ],
+            [
+                "ab16a10e52f357ac"
+            ],
+            [
+                "2b335a7436868856"
+            ]
+        ]
+    },
+    {
+        "id": "f528f8823a5e9430",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "Temperatur Aussen",
+        "entityConfig": "4130a6f71c9ed385",
+        "version": 0,
+        "state": "payload",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1850,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ba7ca063a2e9e5d4",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "d": true,
+        "name": "Temperatur WW Soll",
+        "entityConfig": "",
+        "version": 0,
+        "state": "payload",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1860,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "815d24eb0d082882",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "Temperatur Aussen 24h",
+        "entityConfig": "4f2ff1b78c86806e",
+        "version": 0,
+        "state": "payload",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 2090,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5f0677865b8f9bcb",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "Temperatur WW Ist",
+        "entityConfig": "8092504d32e09ae4",
+        "version": 0,
+        "state": "payload",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 2090,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "05a7aa2b7222c78f",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "Temperatur WQuelle Ein",
+        "entityConfig": "e0af6c7e655ecb0e",
+        "version": 0,
+        "state": "payload",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1870,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cfd50e16e47c4546",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "Temperatur WQuelle Aus",
+        "entityConfig": "290b86f94cd4b102",
+        "version": 0,
+        "state": "payload",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 2150,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5c77ee8573fef963",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "Temperatur Vorlauf Ist",
+        "entityConfig": "67219fc8d842b0cf",
+        "version": 0,
+        "state": "payload",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1860,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "16186c52cccb40ed",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "Temperatur Rücklauf Ist",
+        "entityConfig": "f97adacb2443c90d",
+        "version": 0,
+        "state": "payload",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 2110,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b8bad4bf61e0376d",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "Temperatur Rücklauf Soll",
+        "entityConfig": "100d4d2e806eb6e7",
+        "version": 0,
+        "state": "payload",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 2370,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8dfe7fa741fb1839",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "Betriebsstunden Kompressor",
+        "entityConfig": "6bf7dc1e8e9570ef",
+        "version": 0,
+        "state": "payload",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1880,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ae254be1e5e27d4f",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "Betriebsstunden Warmwasser",
+        "entityConfig": "05f0ccaa4fc0536c",
+        "version": 0,
+        "state": "payload",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 2190,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "43c2947d1b5e1775",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "Betriebsstunden Heizung",
+        "entityConfig": "dac7547e92f59e73",
+        "version": 0,
+        "state": "payload",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 2470,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "920fb2dee0b57379",
+        "type": "ha-binary-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "WW läuft",
+        "entityConfig": "90d12860632310f7",
+        "version": 0,
+        "state": "payload[0].bit0",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1820,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6b6422128af214b3",
+        "type": "ha-binary-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "Heizung läuft",
+        "entityConfig": "08d57f5254b27c52",
+        "version": 0,
+        "state": "payload[0].bit0",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1990,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ab16a10e52f357ac",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "Betriebsstunden Stufe 2",
+        "entityConfig": "658233d2df8ca1a5",
+        "version": 0,
+        "state": "payload",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 2730,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7546c20f2e7d9c6a",
+        "type": "server-state-changed",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "server": "77f235a2.d6e4c4",
+        "version": 6,
+        "outputs": 1,
+        "exposeAsEntityConfig": "",
+        "entities": {
+            "entity": [
+                "input_boolean.heizungonoff"
+            ],
+            "substring": [],
+            "regex": []
+        },
+        "outputInitially": false,
+        "stateType": "str",
+        "ifState": "",
+        "ifStateType": "str",
+        "ifStateOperator": "is",
+        "outputOnlyOnStateChange": true,
+        "for": "10",
+        "forType": "num",
+        "forUnits": "seconds",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 190,
+        "y": 660,
+        "wires": [
+            [
+                "416f7bc288c043dd"
+            ]
+        ]
+    },
+    {
+        "id": "416f7bc288c043dd",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "on",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "off",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 490,
+        "y": 660,
+        "wires": [
+            [
+                "4451852775611852"
+            ],
+            [
+                "2c1495341d7e684d"
+            ]
+        ]
+    },
+    {
+        "id": "4451852775611852",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "Heizung ein",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\"0x10\",\"0x02\",\"0x01\",\"0x13\",\"0x00\",\"0xf3\",\"0x00\",\"0x10\",\"0x03\",\"0x56\",\"0x72\"]",
+                "tot": "bin"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 670,
+        "y": 640,
+        "wires": [
+            [
+                "2b1adca662ad8c43"
+            ]
+        ]
+    },
+    {
+        "id": "2c1495341d7e684d",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "Heizung aus",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\"0x10\",\"0x02\",\"0x01\",\"0x13\",\"0x00\",\"0xf3\",\"0x01\",\"0x10\",\"0x03\",\"0xd6\",\"0x77\"]",
+                "tot": "bin"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 670,
+        "y": 680,
+        "wires": [
+            [
+                "2b1adca662ad8c43"
+            ]
+        ]
+    },
+    {
+        "id": "7ac38b833d7376f7",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "Read Part 2",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\"0x10\",\"0x02\",\"0x01\",\"0x15\",\"0x00\",\"0xf3\",\"0x00\",\"0x83\",\"0x10\",\"0x03\",\"0xf1\",\"0xed\"]",
+                "tot": "bin"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 290,
+        "y": 460,
+        "wires": [
+            [
+                "2b1adca662ad8c43"
+            ]
+        ]
+    },
+    {
+        "id": "7df376b8e6a732d1",
+        "type": "buffer-parser",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "data": "payload",
+        "dataType": "msg",
+        "specification": "spec",
+        "specificationType": "ui",
+        "items": [
+            {
+                "type": "byte",
+                "name": "HZAbschaltung",
+                "offset": 5,
+                "length": 1,
+                "offsetbit": 1,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "byte",
+                "name": "WWAbschaltung",
+                "offset": 70,
+                "length": 1,
+                "offsetbit": 1,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "floatle",
+                "name": "HzSollTemp",
+                "offset": 10,
+                "length": 1,
+                "offsetbit": 1,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "floatle",
+                "name": "HzEinsatz",
+                "offset": 6,
+                "length": 1,
+                "offsetbit": 1,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "floatle",
+                "name": "Warmwasser Soll",
+                "offset": 77,
+                "length": 1,
+                "offsetbit": 1,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "byte",
+                "name": "KlgAbschaltung",
+                "offset": 53,
+                "length": 1,
+                "offsetbit": 1,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "byte",
+                "name": "WWZeitEin",
+                "offset": 71,
+                "length": 2,
+                "offsetbit": 1,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "byte",
+                "name": "WWZeitAus",
+                "offset": 74,
+                "length": 3,
+                "offsetbit": 1,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "floatle",
+                "name": "KlgEinsatz",
+                "offset": 54,
+                "length": 1,
+                "offsetbit": 1,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "floatle",
+                "name": "KlgSollTemp",
+                "offset": 58,
+                "length": 1,
+                "offsetbit": 1,
+                "scale": "1",
+                "mask": ""
+            }
+        ],
+        "swap1": "",
+        "swap2": "",
+        "swap3": "",
+        "swap1Type": "swap",
+        "swap2Type": "swap",
+        "swap3Type": "swap",
+        "msgProperty": "payload",
+        "msgPropertyType": "str",
+        "resultType": "value",
+        "resultTypeType": "return",
+        "multipleResult": true,
+        "fanOutMultipleResult": true,
+        "setTopic": true,
+        "outputs": 10,
+        "x": 1330,
+        "y": 940,
+        "wires": [
+            [
+                "7060694f447b1a74"
+            ],
+            [
+                "c5e4b542c29c2d4b"
+            ],
+            [
+                "3b68820917adef53"
+            ],
+            [
+                "585a51eb213e2f31"
+            ],
+            [
+                "749f554170b2fcba"
+            ],
+            [
+                "6ed07f07793fe405"
+            ],
+            [],
+            [],
+            [
+                "ac8389850df7d3df"
+            ],
+            [
+                "646116f0817790c8"
+            ]
+        ]
+    },
+    {
+        "id": "7060694f447b1a74",
+        "type": "ha-binary-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "HeizungAbschaltung",
+        "entityConfig": "a3391cda5ddbcbea",
+        "version": 0,
+        "state": "payload",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1620,
+        "y": 880,
+        "wires": [
+            [
+                "13f405a5332df71d"
+            ]
+        ]
+    },
+    {
+        "id": "c5e4b542c29c2d4b",
+        "type": "ha-binary-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "WWAbschaltung",
+        "entityConfig": "f78f5049d8579dd8",
+        "version": 0,
+        "state": "payload",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1610,
+        "y": 960,
+        "wires": [
+            [
+                "d866722687a5e2ca"
+            ]
+        ]
+    },
+    {
+        "id": "aadb1d6efa9c7318",
+        "type": "api-call-service",
+        "z": "f6f2187d.f17ca8",
+        "name": "Heizung Button On",
+        "server": "77f235a2.d6e4c4",
+        "version": 7,
+        "debugenabled": false,
+        "action": "input_boolean.turn_on",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_boolean.heizungonoff"
+        ],
+        "labelId": [],
+        "data": "",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "input_boolean",
+        "service": "turn_on",
+        "x": 2030,
+        "y": 840,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1c1635c640475c93",
+        "type": "api-call-service",
+        "z": "f6f2187d.f17ca8",
+        "name": "Heizung Button Off",
+        "server": "77f235a2.d6e4c4",
+        "version": 7,
+        "debugenabled": false,
+        "action": "input_boolean.turn_off",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_boolean.heizungonoff"
+        ],
+        "labelId": [],
+        "data": "",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "input_boolean",
+        "service": "turn_off",
+        "x": 2030,
+        "y": 880,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "13f405a5332df71d",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1810,
+        "y": 880,
+        "wires": [
+            [
+                "aadb1d6efa9c7318"
+            ],
+            [
+                "1c1635c640475c93"
+            ]
+        ]
+    },
+    {
+        "id": "656d77a920baa52c",
+        "type": "api-call-service",
+        "z": "f6f2187d.f17ca8",
+        "name": "Warmwasser Button On",
+        "server": "77f235a2.d6e4c4",
+        "version": 7,
+        "debugenabled": false,
+        "action": "input_boolean.turn_on",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_boolean.warmwasseronoff"
+        ],
+        "labelId": [],
+        "data": "",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "input_boolean",
+        "service": "turn_on",
+        "x": 2050,
+        "y": 940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2c9c2b462668ab9e",
+        "type": "api-call-service",
+        "z": "f6f2187d.f17ca8",
+        "name": "Warmwasser Button Off",
+        "server": "77f235a2.d6e4c4",
+        "version": 7,
+        "debugenabled": false,
+        "action": "input_boolean.turn_off",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_boolean.warmwasseronoff"
+        ],
+        "labelId": [],
+        "data": "",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "input_boolean",
+        "service": "turn_off",
+        "x": 2050,
+        "y": 980,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d866722687a5e2ca",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1810,
+        "y": 960,
+        "wires": [
+            [
+                "656d77a920baa52c"
+            ],
+            [
+                "2c9c2b462668ab9e"
+            ]
+        ]
+    },
+    {
+        "id": "046f7b96f751e766",
+        "type": "server-state-changed",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "server": "77f235a2.d6e4c4",
+        "version": 6,
+        "outputs": 1,
+        "exposeAsEntityConfig": "",
+        "entities": {
+            "entity": [
+                "input_boolean.warmwasseronoff"
+            ],
+            "substring": [],
+            "regex": []
+        },
+        "outputInitially": false,
+        "stateType": "str",
+        "ifState": "",
+        "ifStateType": "str",
+        "ifStateOperator": "is",
+        "outputOnlyOnStateChange": true,
+        "for": "10",
+        "forType": "num",
+        "forUnits": "seconds",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 200,
+        "y": 780,
+        "wires": [
+            [
+                "b7f07aa1cd6cb3db"
+            ]
+        ]
+    },
+    {
+        "id": "b7f07aa1cd6cb3db",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "on",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "off",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 490,
+        "y": 780,
+        "wires": [
+            [
+                "d7fe266950f39583"
+            ],
+            [
+                "4e91dd7162113b66"
+            ]
+        ]
+    },
+    {
+        "id": "d7fe266950f39583",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "WW ein",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\"0x10\",\"0x02\",\"0x01\",\"0x13\",\"0x01\",\"0x34\",\"0x00\",\"0x10\",\"0x03\",\"0x44\",\"0x69\"]",
+                "tot": "bin"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 760,
+        "wires": [
+            [
+                "2b1adca662ad8c43"
+            ]
+        ]
+    },
+    {
+        "id": "4e91dd7162113b66",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "WW aus",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\"0x10\",\"0x02\",\"0x01\",\"0x13\",\"0x01\",\"0x34\",\"0x01\",\"0x10\",\"0x03\",\"0xc4\",\"0x6c\"]",
+                "tot": "bin"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 800,
+        "wires": [
+            [
+                "2b1adca662ad8c43"
+            ]
+        ]
+    },
+    {
+        "id": "6069e4044b47c3e3",
+        "type": "server-state-changed",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "server": "77f235a2.d6e4c4",
+        "version": 6,
+        "outputs": 1,
+        "exposeAsEntityConfig": "",
+        "entities": {
+            "entity": [
+                "input_number.heizung_temp"
+            ],
+            "substring": [],
+            "regex": []
+        },
+        "outputInitially": false,
+        "stateType": "str",
+        "ifState": "",
+        "ifStateType": "str",
+        "ifStateOperator": "is",
+        "outputOnlyOnStateChange": true,
+        "for": "10",
+        "forType": "num",
+        "forUnits": "seconds",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 190,
+        "y": 1040,
+        "wires": [
+            [
+                "822e7c0a61fbcca3"
+            ]
+        ]
+    },
+    {
+        "id": "822e7c0a61fbcca3",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Heizung Temperatur und CRC zu Befehl",
+        "func": "// Node-RED function node code\nmsg.payload = setHeatingTemperature(msg.payload);\nreturn msg;\n\nfunction setHeatingTemperature(temperature) {\n    // Konvertieren Sie die Temperatur in das IEEE 754 Float Little Endian Format\n    let tempBuffer = convertTemperatureToFloatLE(temperature);\n\n    // Erstellen des Befehls ohne CRC\n    let command = Buffer.from([\n        0x10, 0x02, 0x01, 0x13, 0x00, 0xf8\n    ]);\n\n    // Füge den Float-Wert der Temperatur hinzu\n    command = Buffer.concat([command, tempBuffer]);\n\n    // Füge den Abschluss des Befehls hinzu (0x10 und 0x03)\n    command = Buffer.concat([command, Buffer.from([0x10, 0x03])]);\n\n    // Berechnen der CRC-16/BUYPASS-Prüfsumme für Byte 3 bis 10\n    let crc = crc16Bypass(command.slice(2, 10));\n    let crcBuffer = Buffer.alloc(2);\n    crcBuffer.writeUInt16BE(crc, 0); // Write CRC as big-endian\n\n    // Füge CRC hinzu\n    command = Buffer.concat([command, crcBuffer]);\n\n    return command;\n}\n\n\n\nfunction convertTemperatureToFloatLE(temperature) {\n    // Konvertieren Sie die Temperatur in Float und dann in ein Buffer-Objekt\n    let buffer = Buffer.alloc(4);\n    buffer.writeFloatLE(temperature, 0);\n    return buffer;\n}\n\nfunction crc16Bypass(data) {\n    var crc = 0x0000;\n    var polynomial = 0x8005;\n\n    for (var i = 0; i < data.length; i++) {\n        crc ^= (data[i] << 8);\n\n        for (var j = 0; j < 8; j++) {\n            if ((crc & 0x8000) !== 0) {\n                crc = (crc << 1) ^ polynomial;\n            } else {\n                crc <<= 1;\n            }\n        }\n    }\n\n    return crc & 0xFFFF;\n}\n\n\n// Beispielaufruf der Funktion mit der Temperatur 21\nmsg.payload = 21;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 1040,
+        "wires": [
+            [
+                "2b1adca662ad8c43"
+            ]
+        ]
+    },
+    {
+        "id": "01cfb530c67f0ef9",
+        "type": "server-state-changed",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "server": "77f235a2.d6e4c4",
+        "version": 6,
+        "outputs": 1,
+        "exposeAsEntityConfig": "",
+        "entities": {
+            "entity": [
+                "input_number.warmwasser_temp"
+            ],
+            "substring": [],
+            "regex": []
+        },
+        "outputInitially": false,
+        "stateType": "str",
+        "ifState": "",
+        "ifStateType": "str",
+        "ifStateOperator": "is",
+        "outputOnlyOnStateChange": true,
+        "for": "10",
+        "forType": "num",
+        "forUnits": "seconds",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 200,
+        "y": 1160,
+        "wires": [
+            [
+                "3aa29c1b2773586f"
+            ]
+        ]
+    },
+    {
+        "id": "3aa29c1b2773586f",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "WW Temperatur und CRC zu Befehl",
+        "func": "// Node-RED function node code\nmsg.payload = setHeatingTemperature(msg.payload);\nreturn msg;\n\nfunction setHeatingTemperature(temperature) {\n    // Konvertieren Sie die Temperatur in das IEEE 754 Float Little Endian Format\n    let tempBuffer = convertTemperatureToFloatLE(temperature);\n\n    // Erstellen des Befehls ohne CRC\n    let command = Buffer.from([\n        0x10, 0x02, 0x01, 0x13, 0x01, 0x3b\n    ]);\n\n    // Füge den Float-Wert der Temperatur hinzu\n    command = Buffer.concat([command, tempBuffer]);\n\n    // Füge den Abschluss des Befehls hinzu (0x10 und 0x03)\n    command = Buffer.concat([command, Buffer.from([0x10, 0x03])]);\n\n    // Berechnen der CRC-16/BUYPASS-Prüfsumme für Byte 3 bis 10\n    let crc = crc16Bypass(command.slice(2, 10));\n    let crcBuffer = Buffer.alloc(2);\n    crcBuffer.writeUInt16BE(crc, 0); // Write CRC as big-endian\n\n    // Füge CRC hinzu\n    command = Buffer.concat([command, crcBuffer]);\n\n    return command;\n}\n\n\n\nfunction convertTemperatureToFloatLE(temperature) {\n    // Konvertieren Sie die Temperatur in Float und dann in ein Buffer-Objekt\n    let buffer = Buffer.alloc(4);\n    buffer.writeFloatLE(temperature, 0);\n    return buffer;\n}\n\nfunction crc16Bypass(data) {\n    var crc = 0x0000;\n    var polynomial = 0x8005;\n\n    for (var i = 0; i < data.length; i++) {\n        crc ^= (data[i] << 8);\n\n        for (var j = 0; j < 8; j++) {\n            if ((crc & 0x8000) !== 0) {\n                crc = (crc << 1) ^ polynomial;\n            } else {\n                crc <<= 1;\n            }\n        }\n    }\n\n    return crc & 0xFFFF;\n}\n\n\n// Beispielaufruf der Funktion mit der Temperatur 21\nmsg.payload = 21;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 1160,
+        "wires": [
+            [
+                "2b1adca662ad8c43"
+            ]
+        ]
+    },
+    {
+        "id": "3b68820917adef53",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "HeizungSollTemperatur",
+        "entityConfig": "b0d499086969e38a",
+        "version": 0,
+        "state": "payload",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1630,
+        "y": 1200,
+        "wires": [
+            [
+                "f5b816daf807df3b"
+            ]
+        ]
+    },
+    {
+        "id": "585a51eb213e2f31",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "HeizungEinsatzTemp",
+        "entityConfig": "6b6b5ec45d6fcaab",
+        "version": 0,
+        "state": "payload",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1620,
+        "y": 1260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a56773eb75e3cfaa",
+        "type": "api-call-service",
+        "z": "f6f2187d.f17ca8",
+        "name": "Heizung Soll Set",
+        "server": "77f235a2.d6e4c4",
+        "version": 7,
+        "debugenabled": false,
+        "action": "input_number.set_value",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_number.heizung_temp"
+        ],
+        "labelId": [],
+        "data": "{\t  \"value\": $formatNumber(msg.payload, \"#0.00\")\t}",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "input_number",
+        "service": "set_value",
+        "x": 2360,
+        "y": 1200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a4f9c67f77041582",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "Adressliste",
+        "info": "! Adresse Anzahl MenueEntry MenueName_de\n! 0x0000 0x0002 00.00 Versions-Nummer\n! 0x0002 0x0003 00.01 Versions-Datum\n! 0x0005 0x0003 00.02 Betriebs-Mode\n! 0x0008 0x0004 01.00 Temp-Aussen\n! 0x000C 0x0004 01.01 Temp-Aussen-24h\n! 0x0010 0x0004 01.02 Temp-Aussen-1h\n! 0x0014 0x0004 01.03 Temp-Ruecklauf Soll\n! 0x0018 0x0004 01.04 Temp-Ruecklauf\n! 0x001C 0x0004 01.05 Temp-Vorlauf\n! 0x0020 0x0004 01.06 Temp-WW Soll\n! 0x0024 0x0004 01.07 Temp-WW Ist\n! 0x0028 0x0004 01.08 Temp-Raum\n! 0x002C 0x0004 01.09 Temp-Raum-1h\n! 0x0030 0x0004 01.10 Temp-WQuelle-Ein\n! 0x0034 0x0004 01.11 Temp-WQuelle-Aus\n! 0x0038 0x0004 01.12 Temp-Verdampfer\n! 0x003C 0x0004 01.13 Temp-Kondensator\n! 0x0040 0x0004 01.14 Temp-Saugleitung\n! 0x0044 0x0004 01.15 Temp-frei\n! 0x0048 0x0004 01.16 Druck-Verdampfer\n! 0x004C 0x0004 01.17 Druck-Kondensator\n! 0x00F3 0x0001 02.00 Handabschaltung\n! 0x00F4 0x0004 02.01 Hzg Einsatzzeitpunkt Sollwert\n! 0x00F8 0x0004 02.02 Hzg Ruecklauf Sollwert am Einsatzp.\n! 0x00FC 0x0004 02.03 Kennline Steigung Soll\n! 0x0100 0x0004 02.04 Kennline Obere Begrenzung\n! 0x0050 0x0004 02.05 Hzg: Temp Ruecklauf Soll\n! 0x0054 0x0004 02.06 Hzg: Temp Ruecklauf Ist\n! 0x0104 0x0001 02.07 Sollwertanhebung 4k fuer 24 Stunden\n! 0x0105 0x0004 02.08 Pilotraum Sollwert\n! 0x0109 0x0001 02.09 Pilotraum Faktor\n! 0x010A 0x0004 02.10 Externe Anhebung\n! 0x010E 0x0003 02.11 Freigabe Heizung\n! 0x0111 0x0003 02.12 Sperren Heizung\n! 0x0114 0x0003 02.13 Sollwertaenderung Ein\n! 0x0117 0x0003 02.14 Sollwertaenderung Aus\n! 0x011A 0x0004 02.15 St. 2 Kl. Obere Begrenzung\n! 0x011E 0x0004 02.16 Kennlinie Hysterese\n! 0x0122 0x0001 02.17 Pumpen Nachlaufzeit\n! 0x0123 0x0001 03.00 Abschaltung\n! 0x0124 0x0004 03.01 Klg Einsatzzeitpunkt\n! 0x0128 0x0004 03.02 Ruecklauftemp. Sollwert am Einsatzzeitp.\n! 0x012C 0x0004 03.03 Klg Kennlinie Steigung Soll\n! 0x0130 0x0004 03.04 Kennlinie untere Begrenzung\n! 0x0058 0x0004 03.05 Klg: Temp Ruecklauf Soll\n! 0x005C 0x0004 03.06 Klg: Temp Ruecklauf Ist\n! 0x0134 0x0001 04.00 Abschaltung\n! 0x0135 0x0003 04.01 Zeit ein\n! 0x0138 0x0003 04.02 Zeit aus\n! 0x0060 0x0004 04.03 WW: Temp Ist\n! 0x013b 0x0004 04.04 Warmwasser Soll\n! 0x013F 0x0004 04.05 Beckenwasser Temperatur Soll\n! 0x0143 0x0004 04.06 Warmwasser Hysterese\n! 0x0147 0x0004 04.07 Beckenwasser Hysterese\n! 0x0064 0x0003 05.00 Uhrzeit\n! 0x0067 0x0003 05.01 Datum\n! 0x006A 0x0004 05.02 Betriebsstunden Kompressor\n! 0x006E 0x0004 05.03 Betriebsstunden Heizbetrieb\n! 0x0072 0x0004 05.04 Betriebsstunden Warmwasserbetrieb\n! 0x0076 0x0004 05.05 Betriebsstunden Stufe 2\n! 0x007A 0x0003 05.06 Messbeginn Zeit Kompressor\n! 0x007D 0x0003 05.07 Messbeginn Datum Kompressor\n! 0x0080 0x0003 05.08 Messbeginn Zeit Pumpen\n! 0x0083 0x0003 05.09 Messbeginn Datum Pumpen\n! 0x0086 0x0001 05.10 Betriebsstunden Reset Kompressor\n! 0x0087 0x0001 05.11 Betriebsstunden Reset Pumpen\n! 0x0088 0x0001 06.00 Kennwort\n! 0x0089 0x0001 06.01 Werkseinstellung\n! 0x014B 0x0001 06.02 Modem Klingelzeichen\n! 0x014C 0x0001 06.03 Fremdzugriff\n! 0x014D 0x0001 06.04 Schluesselnummer\n! 0x014E 0x0003 06.05 SetBetriebsMode\n! 0x008A 0x0001 06.06 Reset Waermepumpe\n! 0x0151 0x0001 06.07 Hzg: Externe Freigabe\n! 0x0152 0x0004 06.08 Hzg: Externe Ruecklaufsteuerung\n! 0x0156 0x0004 06.09 St2: TempQAus < Min\n! 0x015A 0x0004 06.10 St2: TempVerd < Min\n! 0x015E 0x0001 06.11 Estrich Aufheizen\n! 0x015F 0x0001 06.12 Hzg: Externe Steuerung\n! 0x0160 0x0001 06.13 St2 bei EVU Absch.\n! 0x0161 0x0001 06.14 Frg. Beckenwasser\n! 0x0162 0x0004 06.15 Scale Faktor\n! 0x0166 0x0004 06.16 Offset Niederdr.\n! 0x016A 0x0004 06.17 Offset Hochdr.\n! 0x016E 0x0001 06.18 DO-Handkanal\n! 0x016F 0x0001 06.19 DO-Handkanal Ein\n! 0x008B 0x0002 06.20 CRC-Summe\n! 0x0174 0x0001 06.21 Neu-Start\n! 0x0175 0x0001 06.22 Run-Flag\n! 0x008E 0x0002 06.23 Display Zeile 1\n! 0x0090 0x0001 06.24 Display Zeile 2\n! 0x0091 0x0003 07.00 Ausfall Zeit\n! 0x0094 0x0003 07.01 Ausfall Datum\n! 0x0097 0x0001 07.02 Ausfall Betriebszustaende\n! 0x0098 0x0001 07.03 Ausfall DO Buffer\n! 0x0099 0x0001 07.04 Ausfall DI Buffer\n! 0x009A 0x0001 07.05 Ausfall AI Error\n! 0x009B 0x0001 07.06 Ausfall AI DI\n! 0x009C 0x0004 07.07 Ausfall AI Temp Aussen\n! 0x00A0 0x0004 07.08 Ausfall AI Temp WQ Ein\n! 0x00A4 0x0004 07.09 Ausfall AI Temp WQ Aus\n! 0x00A8 0x0004 07.10 Ausfall AI Temp Verdampfer\n! 0x00AC 0x0004 07.11 Ausfall AI Temp Heizung Ein\n! 0x00B0 0x0004 07.12 Ausfall AI Temp Heizung Aus\n! 0x00B4 0x0004 07.13 Ausfall AI Temp Kondensation\n! 0x00B8 0x0004 07.14 Ausfall AI Temp Warmwasser\n! 0x00BC 0x0001 07.15 Ausfall Term AI Error\n! 0x00BD 0x0001 07.16 Ausfall Term AI Di\n! 0x00BE 0x0004 07.17 Ausfall AI Temp Raum\n! 0x00C2 0x0001 07.18 Clear Ausfälle\n! 0x00C3 0x0001 08.00 Unterbrechungen\n! 0x00C4 0x0001 08.01 Warnung Eingangsseite\n! 0x00C5 0x0001 08.02 Warnung Ausgangsseite\n! 0x00C6 0x0001 08.03 Warnung Sonstige\n! 0x00C7 0x0001 08.04 Ausfall\n! 0x00C8 0x0001 08.05 AI Error Fuehler Ausfall\n! 0x00C9 0x0001 08.06 AI Di Fuehler defekt\n! 0x00C9 0x0003 08.07 Kontrollwert fuer Fuehlerkalibrierung\n! 0x00CC 0x0001 08.08 Unterbrechung Raumfuehler\n! 0x00CD 0x0001 08.09 Kurzschluss Raumfuehler\n! 0x0171 0x0001 08.10 Unterbrechung Warung Eingangsseite\n! 0x0172 0x0001 08.11 Unterbrechung Warung Ausgangsseite\n! 0x0173 0x0001 08.12 Unterbrechung Warung Ausgangsseite\n! 0x00CE 0x0001 09.00 Betriebszustaende\n! 0x00CF 0x0001 09.01 DO-Buffer\n! 0x00D0 0x0001 09.02 DI-Buffer\n! 0x00D1 0x0003 09.03 Gesamtstatus\n! 0x00D4 0x0003 09.04 Status Verriegelung\n! 0x00D7 0x0003 09.05 Status Heizung\n! 0x00DF 0x0001 09.10 Mode Heizung\n! 0x00E0 0x0001 09.11 Mode Kuehlung\n! 0x00E1 0x0001 09.12 Mode Warmwasser\n! 0x0000 0x0001 10.00 Logger Zyklus\n! 0x0000 0x0001 10.01 Initialisierung des Loggers\n! 0x0000 0x0004 10.02 Speicherfehler des Loggers\n! 0x00E3 0x0003 10.03 Uhrzeit der Initialisierung\n! 0x00E6 0x0003 10.04 Datum der Initialisierung\n! 0x00E9 0x0002 10.05 Maximale Anzahl der Datensaetze\n! 0x00EB 0x0003 10.06 Laufende Nr. aktueller Datensatz\n! 0x00ED 0x0002 10.07 Anzahl gespeicherter Datensaetze\n! 0x00EF 0x0002 10.08 Groesse eines Datensatzes\n! 0x00F1 0x0002 10.09 Max Groesse das Datenspeicher",
+        "x": 1400,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "749f554170b2fcba",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "WarmwasserSoll",
+        "entityConfig": "298d196fdd0630ec",
+        "version": 0,
+        "state": "payload",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1610,
+        "y": 1320,
+        "wires": [
+            [
+                "523836a1b37c86a2"
+            ]
+        ]
+    },
+    {
+        "id": "6ed07f07793fe405",
+        "type": "ha-binary-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "KlgAbschaltung",
+        "entityConfig": "12dc906c6496795b",
+        "version": 0,
+        "state": "payload",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1600,
+        "y": 1060,
+        "wires": [
+            [
+                "af519b7cce8e57a2"
+            ]
+        ]
+    },
+    {
+        "id": "c0a4aaa1ba9fda81",
+        "type": "api-call-service",
+        "z": "f6f2187d.f17ca8",
+        "name": "Warmwasser Soll Set",
+        "server": "77f235a2.d6e4c4",
+        "version": 7,
+        "debugenabled": false,
+        "action": "input_number.set_value",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_number.warmwasser_temp"
+        ],
+        "labelId": [],
+        "data": "{\t  \"value\": $formatNumber(msg.payload, \"#0.00\")\t}",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "input_number",
+        "service": "set_value",
+        "x": 2380,
+        "y": 1320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2b1adca662ad8c43",
+        "type": "delay",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "10",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 520,
+        "y": 500,
+        "wires": [
+            [
+                "6ac51c7cb11eb303"
+            ]
+        ]
+    },
+    {
+        "id": "cb6a841fbbc38183",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "Last Warmwasser Temp NOT set within 15s",
+        "property": "warmwasser_temp_last_timestamp",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "$moment().subtract(15, 'seconds')",
+                "vt": "jsonata"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 2070,
+        "y": 1280,
+        "wires": [
+            [
+                "c0a4aaa1ba9fda81"
+            ]
+        ]
+    },
+    {
+        "id": "78c084b1304e0673",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "Last Heizung Temp NOT set within 15s",
+        "property": "heizung_temp_last_timestamp",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "$moment().subtract(15, 'seconds')",
+                "vt": "jsonata"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 2070,
+        "y": 1160,
+        "wires": [
+            [
+                "a56773eb75e3cfaa"
+            ]
+        ]
+    },
+    {
+        "id": "523836a1b37c86a2",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "warmwasser_temp_last_timestamp",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "nnull"
+            },
+            {
+                "t": "null"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1810,
+        "y": 1320,
+        "wires": [
+            [
+                "cb6a841fbbc38183"
+            ],
+            [
+                "c0a4aaa1ba9fda81"
+            ]
+        ]
+    },
+    {
+        "id": "f5b816daf807df3b",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "heizung_temp_last_timestamp",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "nnull"
+            },
+            {
+                "t": "null"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1830,
+        "y": 1200,
+        "wires": [
+            [
+                "78c084b1304e0673"
+            ],
+            [
+                "a56773eb75e3cfaa"
+            ]
+        ]
+    },
+    {
+        "id": "039a2f4b7b3c322c",
+        "type": "server-state-changed",
+        "z": "f6f2187d.f17ca8",
+        "name": "Set global variable if Warmwasser Temp state changed",
+        "server": "77f235a2.d6e4c4",
+        "version": 6,
+        "outputs": 1,
+        "exposeAsEntityConfig": "",
+        "entities": {
+            "entity": [
+                "input_number.warmwasser_temp"
+            ],
+            "substring": [],
+            "regex": []
+        },
+        "outputInitially": false,
+        "stateType": "str",
+        "ifState": "",
+        "ifStateType": "str",
+        "ifStateOperator": "is",
+        "outputOnlyOnStateChange": true,
+        "for": "1",
+        "forType": "num",
+        "forUnits": "seconds",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "warmwasser_temp_last_timestamp",
+                "propertyType": "global",
+                "value": "",
+                "valueType": "date"
+            }
+        ],
+        "x": 220,
+        "y": 1220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "98779dcd5c296255",
+        "type": "server-state-changed",
+        "z": "f6f2187d.f17ca8",
+        "name": "Set global variable if Heizung Temp state changed",
+        "server": "77f235a2.d6e4c4",
+        "version": 6,
+        "outputs": 1,
+        "exposeAsEntityConfig": "",
+        "entities": {
+            "entity": [
+                "input_number.heizung_temp"
+            ],
+            "substring": [],
+            "regex": []
+        },
+        "outputInitially": false,
+        "stateType": "str",
+        "ifState": "",
+        "ifStateType": "str",
+        "ifStateOperator": "is",
+        "outputOnlyOnStateChange": true,
+        "for": "1",
+        "forType": "num",
+        "forUnits": "seconds",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "heizung_temp_last_timestamp",
+                "propertyType": "global",
+                "value": "",
+                "valueType": "date"
+            }
+        ],
+        "x": 210,
+        "y": 1100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3e0e595e99479ef9",
+        "type": "server-state-changed",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "server": "77f235a2.d6e4c4",
+        "version": 6,
+        "outputs": 1,
+        "exposeAsEntityConfig": "",
+        "entities": {
+            "entity": [
+                "input_boolean.kuehlung_on_off"
+            ],
+            "substring": [],
+            "regex": []
+        },
+        "outputInitially": false,
+        "stateType": "str",
+        "ifState": "",
+        "ifStateType": "str",
+        "ifStateOperator": "is",
+        "outputOnlyOnStateChange": true,
+        "for": "10",
+        "forType": "num",
+        "forUnits": "seconds",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 200,
+        "y": 900,
+        "wires": [
+            [
+                "439eedb811c10f04"
+            ]
+        ]
+    },
+    {
+        "id": "439eedb811c10f04",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "on",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "off",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 490,
+        "y": 900,
+        "wires": [
+            [
+                "fa66e34ffa33174d"
+            ],
+            [
+                "596d127bb1248ad0"
+            ]
+        ]
+    },
+    {
+        "id": "fa66e34ffa33174d",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "Kuehlung ein",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\"0x10\",\"0x02\",\"0x01\",\"0x13\",\"0x01\",\"0x23\",\"0x00\",\"0x10\",\"0x03\",\"0x36\",\"0x69\"]",
+                "tot": "bin"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 670,
+        "y": 880,
+        "wires": [
+            [
+                "2b1adca662ad8c43"
+            ]
+        ]
+    },
+    {
+        "id": "596d127bb1248ad0",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "Kuehlung aus",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\"0x10\",\"0x02\",\"0x01\",\"0x13\",\"0x01\",\"0x23\",\"0x01\",\"0x10\",\"0x03\",\"0xB6\",\"0x6C\"]",
+                "tot": "bin"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 680,
+        "y": 920,
+        "wires": [
+            [
+                "2b1adca662ad8c43"
+            ]
+        ]
+    },
+    {
+        "id": "e3f0aed56bd256b2",
+        "type": "server-state-changed",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "server": "77f235a2.d6e4c4",
+        "version": 6,
+        "outputs": 1,
+        "exposeAsEntityConfig": "",
+        "entities": {
+            "entity": [
+                "input_number.kuehlung_temp"
+            ],
+            "substring": [],
+            "regex": []
+        },
+        "outputInitially": false,
+        "stateType": "str",
+        "ifState": "",
+        "ifStateType": "str",
+        "ifStateOperator": "is",
+        "outputOnlyOnStateChange": true,
+        "for": "10",
+        "forType": "num",
+        "forUnits": "seconds",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 190,
+        "y": 1300,
+        "wires": [
+            [
+                "0b4a42c9a4e8b066"
+            ]
+        ]
+    },
+    {
+        "id": "0b4a42c9a4e8b066",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Kuehlung Temperatur und CRC zu Befehl",
+        "func": "// Node-RED function node code\nmsg.payload = setHeatingTemperature(msg.payload);\nreturn msg;\n\nfunction setHeatingTemperature(temperature) {\n    // Konvertieren Sie die Temperatur in das IEEE 754 Float Little Endian Format\n    let tempBuffer = convertTemperatureToFloatLE(temperature);\n\n    // Erstellen des Befehls ohne CRC\n    let command = Buffer.from([\n        0x10, 0x02, 0x01, 0x13, 0x01, 0x28\n    ]);\n\n    // Füge den Float-Wert der Temperatur hinzu\n    command = Buffer.concat([command, tempBuffer]);\n\n    // Füge den Abschluss des Befehls hinzu (0x10 und 0x03)\n    command = Buffer.concat([command, Buffer.from([0x10, 0x03])]);\n\n    // Berechnen der CRC-16/BUYPASS-Prüfsumme für Byte 3 bis 10\n    let crc = crc16Bypass(command.slice(2, 10));\n    let crcBuffer = Buffer.alloc(2);\n    crcBuffer.writeUInt16BE(crc, 0); // Write CRC as big-endian\n\n    // Füge CRC hinzu\n    command = Buffer.concat([command, crcBuffer]);\n\n    return command;\n}\n\n\n\nfunction convertTemperatureToFloatLE(temperature) {\n    // Konvertieren Sie die Temperatur in Float und dann in ein Buffer-Objekt\n    let buffer = Buffer.alloc(4);\n    buffer.writeFloatLE(temperature, 0);\n    return buffer;\n}\n\nfunction crc16Bypass(data) {\n    var crc = 0x0000;\n    var polynomial = 0x8005;\n\n    for (var i = 0; i < data.length; i++) {\n        crc ^= (data[i] << 8);\n\n        for (var j = 0; j < 8; j++) {\n            if ((crc & 0x8000) !== 0) {\n                crc = (crc << 1) ^ polynomial;\n            } else {\n                crc <<= 1;\n            }\n        }\n    }\n\n    return crc & 0xFFFF;\n}\n\n\n// Beispielaufruf der Funktion mit der Temperatur 21\nmsg.payload = 21;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 1300,
+        "wires": [
+            [
+                "2b1adca662ad8c43"
+            ]
+        ]
+    },
+    {
+        "id": "78f298268858c37a",
+        "type": "server-state-changed",
+        "z": "f6f2187d.f17ca8",
+        "name": "Set global variable if Kuehlung Temp state changed",
+        "server": "77f235a2.d6e4c4",
+        "version": 6,
+        "outputs": 1,
+        "exposeAsEntityConfig": "",
+        "entities": {
+            "entity": [
+                "input_number.kuehlung_temp"
+            ],
+            "substring": [],
+            "regex": []
+        },
+        "outputInitially": false,
+        "stateType": "str",
+        "ifState": "",
+        "ifStateType": "str",
+        "ifStateOperator": "is",
+        "outputOnlyOnStateChange": true,
+        "for": "1",
+        "forType": "num",
+        "forUnits": "seconds",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "kuehlung_temp_last_timestamp",
+                "propertyType": "global",
+                "value": "",
+                "valueType": "date"
+            }
+        ],
+        "x": 210,
+        "y": 1360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "edb880ec698d69a6",
+        "type": "api-call-service",
+        "z": "f6f2187d.f17ca8",
+        "name": "Kuehlung Button On",
+        "server": "77f235a2.d6e4c4",
+        "version": 7,
+        "debugenabled": false,
+        "action": "input_boolean.turn_on",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_boolean.kuehlung_on_off"
+        ],
+        "labelId": [],
+        "data": "",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "input_boolean",
+        "service": "turn_on",
+        "x": 2040,
+        "y": 1040,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f592fb92c73ce04a",
+        "type": "api-call-service",
+        "z": "f6f2187d.f17ca8",
+        "name": "Kuehlung Button Off",
+        "server": "77f235a2.d6e4c4",
+        "version": 7,
+        "debugenabled": false,
+        "action": "input_boolean.turn_off",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_boolean.kuehlung_on_off"
+        ],
+        "labelId": [],
+        "data": "",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "input_boolean",
+        "service": "turn_off",
+        "x": 2040,
+        "y": 1080,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "af519b7cce8e57a2",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1810,
+        "y": 1060,
+        "wires": [
+            [
+                "edb880ec698d69a6"
+            ],
+            [
+                "f592fb92c73ce04a"
+            ]
+        ]
+    },
+    {
+        "id": "646116f0817790c8",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "KlgSollTemperatur",
+        "entityConfig": "00470c391472195a",
+        "version": 0,
+        "state": "payload",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1610,
+        "y": 1460,
+        "wires": [
+            [
+                "1c180ecca45d64cc"
+            ]
+        ]
+    },
+    {
+        "id": "ac8389850df7d3df",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "KlgEinsatzTemperatur",
+        "entityConfig": "79db91880beffbbe",
+        "version": 0,
+        "state": "payload",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1620,
+        "y": 1400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e084804061215852",
+        "type": "api-call-service",
+        "z": "f6f2187d.f17ca8",
+        "name": "Kuehlung Soll Set",
+        "server": "77f235a2.d6e4c4",
+        "version": 7,
+        "debugenabled": false,
+        "action": "input_number.set_value",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_number.kuehlung_temp"
+        ],
+        "labelId": [],
+        "data": "{\t  \"value\": $formatNumber(msg.payload, \"#0.00\")\t}",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "input_number",
+        "service": "set_value",
+        "x": 2370,
+        "y": 1460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "82a47875141f5413",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "Last Kuehlung Temp NOT set within 15s",
+        "property": "kuehlung_temp_last_timestamp",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "$moment().subtract(15, 'seconds')",
+                "vt": "jsonata"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 2060,
+        "y": 1420,
+        "wires": [
+            [
+                "e084804061215852"
+            ]
+        ]
+    },
+    {
+        "id": "1c180ecca45d64cc",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "kuehlung_temp_last_timestamp",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "nnull"
+            },
+            {
+                "t": "null"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1810,
+        "y": 1460,
+        "wires": [
+            [
+                "82a47875141f5413"
+            ],
+            [
+                "e084804061215852"
+            ]
+        ]
+    },
+    {
+        "id": "2b335a7436868856",
+        "type": "ha-binary-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "Kuehlung läuft",
+        "entityConfig": "89e0e46dd868eda8",
+        "version": 0,
+        "state": "payload[0].bit0",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 2180,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8e69fe7eebca0e0d",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "Protokoll",
+        "info": "https://github.com/mwllgr/fhem-waterkotte-resuemat-cd4",
+        "x": 1400,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "acedbd0f4fa741cd",
+        "type": "serial request",
+        "z": "f6f2187d.f17ca8",
+        "d": true,
+        "name": "query data serial",
+        "serial": "",
+        "x": 730,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4130a6f71c9ed385",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Heizung Temperatur Aussen",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Heizung Temperatur Aussen"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "4f2ff1b78c86806e",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Temperatur Aussen 24h",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Temperatur Aussen 24h"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "8092504d32e09ae4",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Heizung WW Ist",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Heizung WW Ist"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "e0af6c7e655ecb0e",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Heizung WQuelle Ein",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Heizung WQuelle Ein"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "290b86f94cd4b102",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Heizung WQuelle Aus",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Heizung WQuelle Aus"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "67219fc8d842b0cf",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Heizung Temperatur Vorlauf Ist",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Heizung Temperatur Vorlauf Ist"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "f97adacb2443c90d",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Heizung Temperatur Rücklauf Ist",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Heizung Temperatur Rücklauf Ist"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "100d4d2e806eb6e7",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Heizung Temperatur Rücklauf Soll",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Heizung Temperatur Rücklauf Soll"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "6bf7dc1e8e9570ef",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Betriebsstunden Kompressor",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Betriebsstunden Kompressor"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "duration"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "h"
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "05f0ccaa4fc0536c",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Heizung Betriebsstunden Warmwasser",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Heizung Betriebsstunden Warmwasser"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "duration"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "h"
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "dac7547e92f59e73",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Heizung Betriebsstunden Kompressor",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Heizung Betriebsstunden Kompressor"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "duration"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "h"
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "90d12860632310f7",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "WW läuft",
+        "version": "6",
+        "entityType": "binary_sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "WW läuft"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "heat"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "08d57f5254b27c52",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Heizung läuft",
+        "version": "6",
+        "entityType": "binary_sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Heizung läuft"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "heat"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "658233d2df8ca1a5",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Betriebsstunden Stufe 2",
+        "version": 6,
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Betriebsstunden Stufe 2"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "duration"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "h"
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "77f235a2.d6e4c4",
+        "type": "server",
+        "name": "Home Assistant Local",
+        "version": 5,
+        "addon": false,
+        "rejectUnauthorizedCerts": true,
+        "ha_boolean": "y|yes|true|on|home|open",
+        "connectionDelay": true,
+        "cacheJson": true,
+        "heartbeat": false,
+        "heartbeatInterval": "30",
+        "areaSelector": "friendlyName",
+        "deviceSelector": "friendlyName",
+        "entitySelector": "friendlyName",
+        "statusSeparator": "at: ",
+        "statusYear": "hidden",
+        "statusMonth": "short",
+        "statusDay": "numeric",
+        "statusHourCycle": "h23",
+        "statusTimeFormat": "h:m",
+        "enableGlobalContextStore": true
+    },
+    {
+        "id": "a3391cda5ddbcbea",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "HeizungAbschaltung",
+        "version": 6,
+        "entityType": "binary_sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "HeizungAbschaltung"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "f78f5049d8579dd8",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "WWAbschaltung",
+        "version": "6",
+        "entityType": "binary_sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "WWAbschaltung"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "b0d499086969e38a",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "HeizungSollTemperatur",
+        "version": 6,
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "HeizungSollTemperatur"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "6b6b5ec45d6fcaab",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "HeizungEinsatzTemp",
+        "version": 6,
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "HeizungEinsatzTemp"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "298d196fdd0630ec",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "WarmwasserSoll",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "WarmwasserSoll"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "12dc906c6496795b",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "KlgAbschaltung",
+        "version": "6",
+        "entityType": "binary_sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "KlgAbschaltung"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "00470c391472195a",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "KlgSollTemperatur",
+        "version": 6,
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "KlgSollTemperatur"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "79db91880beffbbe",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "KlgEinsatzTemperatur",
+        "version": 6,
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "KlgEinsatzTemperatur"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "89e0e46dd868eda8",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Kuehlung läuft",
+        "version": 6,
+        "entityType": "binary_sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Kuehlung läuft"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "cold"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    }
+]
