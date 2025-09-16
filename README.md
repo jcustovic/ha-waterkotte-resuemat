@@ -20,14 +20,15 @@ The Node-Red flow reads all the values every 2 min (but you can adjust) and you 
 
 How it looks like:
 
-Node-Red
+Node-Red:
+
 <img width="2558" height="1072" alt="image" src="https://github.com/user-attachments/assets/98c0afa0-8944-4a7f-93b5-8d8920e344ce" />
 
-Home Assistant
+Home Assistant:
+
 <img width="454" height="1150" alt="image" src="https://github.com/user-attachments/assets/dfe4b228-b4cf-4e25-abcf-7a442aedcf9e" />
 <img width="451" height="384" alt="image" src="https://github.com/user-attachments/assets/a5154e80-98a4-440b-be5b-3f688fd51c08" />
 
-
-
+--
 
 NOTE: You are using this at your own risk.
