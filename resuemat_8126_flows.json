@@ -314,6 +314,15 @@
                 "offsetbit": 1,
                 "scale": "1",
                 "mask": ""
+            },
+            {
+                "type": "byte",
+                "name": "DatumUhrzeit",
+                "offset": 105,
+                "length": 6,
+                "offsetbit": 1,
+                "scale": "1",
+                "mask": ""
             }
         ],
         "swap1": "",
@@ -329,7 +338,7 @@
         "multipleResult": true,
         "fanOutMultipleResult": true,
         "setTopic": true,
-        "outputs": 17,
+        "outputs": 18,
         "x": 1400,
         "y": 500,
         "wires": [
@@ -383,6 +392,9 @@
             ],
             [
                 "2b335a7436868856"
+            ],
+            [
+                "1b6e434ad0649b27"
             ]
         ]
     },
@@ -2404,6 +2416,108 @@
         ]
     },
     {
+        "id": "1b6e434ad0649b27",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "parseDateTimeFromBytes",
+        "func": "// Node-RED function node code\nmsg.payload = convertToDateTime(msg.payload);\nreturn msg;\n\nfunction convertToDateTime(timeBytes) {\n    \n    return new Date(2000 + timeBytes[5], timeBytes[4] - 1, timeBytes[3], timeBytes[2], timeBytes[1], timeBytes[0]);\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1870,
+        "y": 740,
+        "wires": [
+            [
+                "40ddfbfbc78f10f7"
+            ]
+        ]
+    },
+    {
+        "id": "40ddfbfbc78f10f7",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "DatumUhrzeit",
+        "entityConfig": "4eb32a6013505108",
+        "version": 0,
+        "state": "payload",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 2180,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ebfd4e09d5589234",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Ziet synchronisieren und CRC zu Befehl",
+        "func": "// Node-RED function node code\nmsg.payload = getCommandToSyncTime(new Date());\nreturn msg;\n\nfunction getCommandToSyncTime(dateTime) {\n    let dateTimeBytes = convertDateTimeToBytes(dateTime);\n\n    // Erstellen des Befehls ohne CRC\n    let command = Buffer.from([\n        0x10, 0x02, 0x01, 0x14, 0x00, 0x00\n    ]);\n\n    // Füge den DateTime-Wert der Zeit hinzu\n    command = Buffer.concat([command, dateTimeBytes]);\n\n    // Füge den Abschluss des Befehls hinzu (0x10 und 0x03)\n    command = Buffer.concat([command, Buffer.from([0x10, 0x03])]);\n\n    // Berechnen der CRC-16/BUYPASS-Prüfsumme für Byte 3 bis 12\n    let crc = crc16Bypass(command.slice(2, 12));\n    let crcBuffer = Buffer.alloc(2);\n    crcBuffer.writeUInt16BE(crc, 0); // Write CRC as big-endian\n\n    // Füge CRC hinzu\n    command = Buffer.concat([command, crcBuffer]);\n\n    return command;\n}\n\n\n\nfunction convertDateTimeToBytes(dateTime) {\n    let buffer = Buffer.alloc(6);\n\n    buffer.writeInt8(dateTime.getSeconds(), 0); // ss\n    buffer.writeInt8(dateTime.getMinutes(), 1); // mm\n    buffer.writeInt8(dateTime.getHours(), 2); // HH\n    buffer.writeInt8(dateTime.getDate(), 3); // dd\n    buffer.writeInt8(dateTime.getMonth() + 1, 4); // MM\n    buffer.writeInt8(dateTime.getFullYear().toString().substr(-2), 5); // yy\n    \n    return buffer;\n}\n\nfunction crc16Bypass(data) {\n    var crc = 0x0000;\n    var polynomial = 0x8005;\n\n    for (var i = 0; i < data.length; i++) {\n        crc ^= (data[i] << 8);\n\n        for (var j = 0; j < 8; j++) {\n            if ((crc & 0x8000) !== 0) {\n                crc = (crc << 1) ^ polynomial;\n            } else {\n                crc <<= 1;\n            }\n        }\n    }\n\n    return crc & 0xFFFF;\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 1500,
+        "wires": [
+            [
+                "2b1adca662ad8c43"
+            ]
+        ]
+    },
+    {
+        "id": "5f8d1e0d6cb38d5e",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "Manual trigger",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 150,
+        "y": 1500,
+        "wires": [
+            [
+                "bbaf584f98238585"
+            ]
+        ]
+    },
+    {
+        "id": "bbaf584f98238585",
+        "type": "delay",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "hour",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 390,
+        "y": 1500,
+        "wires": [
+            [
+                "ebfd4e09d5589234"
+            ]
+        ]
+    },
+    {
         "id": "4130a6f71c9ed385",
         "type": "ha-entity-config",
         "server": "77f235a2.d6e4c4",
@@ -3320,5 +3434,56 @@
         ],
         "resend": false,
         "debugEnabled": false
+    },
+    {
+        "id": "4eb32a6013505108",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "DatumUhrzeit",
+        "version": 6,
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "DatumUhrzeit"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "timestamp"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": ""
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "cde0bb60b4bdba6e",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-buffer-parser": "3.2.2",
+            "node-red-contrib-home-assistant-websocket": "0.78.2",
+            "node-red-node-serialport": "2.0.3"
+        }
     }
 ]
