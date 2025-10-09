@@ -17,12 +17,13 @@ The Node-Red flow reads all the values every 2 min (but you can adjust) and you 
 * Heating temperature (02.02 Hzg Ruecklauf Sollwert am Einsatzp.)
 * Cooling temperature (03.02 Ruecklauftemp. Sollwert am Einsatzzeitp.)
 * Hot watter temperature (04.04 Warmwasser Soll)
+* Synchronize time and date
 
 How it looks like:
 
 Node-Red:
 
-<img width="2558" height="1072" alt="image" src="https://github.com/user-attachments/assets/98c0afa0-8944-4a7f-93b5-8d8920e344ce" />
+<img width="2576" height="1158" alt="image" src="https://github.com/user-attachments/assets/e60b6fa0-83c5-4555-8a8c-e245453ca4e4" />
 
 Home Assistant:
 
