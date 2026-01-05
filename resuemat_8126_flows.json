@@ -323,6 +323,60 @@
                 "offsetbit": 1,
                 "scale": "1",
                 "mask": ""
+            },
+            {
+                "type": "floatle",
+                "name": "Temp-Verdampfer",
+                "offset": 61,
+                "length": 1,
+                "offsetbit": 1,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "floatle",
+                "name": "Temp-Kondensation",
+                "offset": 65,
+                "length": 1,
+                "offsetbit": 1,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "floatle",
+                "name": "Temp-Saugleitung",
+                "offset": 69,
+                "length": 1,
+                "offsetbit": 1,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "floatle",
+                "name": "Temp-frei",
+                "offset": 73,
+                "length": 1,
+                "offsetbit": 1,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "floatle",
+                "name": "Druck-Verdampfer",
+                "offset": 77,
+                "length": 1,
+                "offsetbit": 1,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "floatle",
+                "name": "Druck-Kondensator",
+                "offset": 81,
+                "length": 1,
+                "offsetbit": 1,
+                "scale": "1",
+                "mask": ""
             }
         ],
         "swap1": "",
@@ -338,9 +392,9 @@
         "multipleResult": true,
         "fanOutMultipleResult": true,
         "setTopic": true,
-        "outputs": 18,
+        "outputs": 24,
         "x": 1400,
-        "y": 500,
+        "y": 460,
         "wires": [
             [
                 "7ac38b833d7376f7"
@@ -395,6 +449,22 @@
             ],
             [
                 "1b6e434ad0649b27"
+            ],
+            [
+                "c3071ce12ab55a86"
+            ],
+            [
+                "10df2fcd4015840f"
+            ],
+            [
+                "ea789f186d102163"
+            ],
+            [],
+            [
+                "b19de36d41c82225"
+            ],
+            [
+                "49957631c7e9aa7f"
             ]
         ]
     },
@@ -411,7 +481,7 @@
         "inputOverride": "allow",
         "outputProperties": [],
         "x": 1850,
-        "y": 380,
+        "y": 260,
         "wires": [
             []
         ]
@@ -430,7 +500,7 @@
         "inputOverride": "allow",
         "outputProperties": [],
         "x": 1860,
-        "y": 440,
+        "y": 320,
         "wires": [
             []
         ]
@@ -448,7 +518,7 @@
         "inputOverride": "allow",
         "outputProperties": [],
         "x": 2090,
-        "y": 380,
+        "y": 260,
         "wires": [
             []
         ]
@@ -466,7 +536,7 @@
         "inputOverride": "allow",
         "outputProperties": [],
         "x": 2090,
-        "y": 440,
+        "y": 320,
         "wires": [
             []
         ]
@@ -484,7 +554,7 @@
         "inputOverride": "allow",
         "outputProperties": [],
         "x": 1870,
-        "y": 500,
+        "y": 380,
         "wires": [
             []
         ]
@@ -502,7 +572,7 @@
         "inputOverride": "allow",
         "outputProperties": [],
         "x": 2150,
-        "y": 500,
+        "y": 380,
         "wires": [
             []
         ]
@@ -520,7 +590,7 @@
         "inputOverride": "allow",
         "outputProperties": [],
         "x": 1860,
-        "y": 560,
+        "y": 440,
         "wires": [
             []
         ]
@@ -538,7 +608,7 @@
         "inputOverride": "allow",
         "outputProperties": [],
         "x": 2110,
-        "y": 560,
+        "y": 440,
         "wires": [
             []
         ]
@@ -556,7 +626,7 @@
         "inputOverride": "allow",
         "outputProperties": [],
         "x": 2370,
-        "y": 560,
+        "y": 440,
         "wires": [
             []
         ]
@@ -1594,7 +1664,7 @@
         "name": "Adressliste",
         "info": "! Adresse Anzahl MenueEntry MenueName_de\n! 0x0000 0x0002 00.00 Versions-Nummer\n! 0x0002 0x0003 00.01 Versions-Datum\n! 0x0005 0x0003 00.02 Betriebs-Mode\n! 0x0008 0x0004 01.00 Temp-Aussen\n! 0x000C 0x0004 01.01 Temp-Aussen-24h\n! 0x0010 0x0004 01.02 Temp-Aussen-1h\n! 0x0014 0x0004 01.03 Temp-Ruecklauf Soll\n! 0x0018 0x0004 01.04 Temp-Ruecklauf\n! 0x001C 0x0004 01.05 Temp-Vorlauf\n! 0x0020 0x0004 01.06 Temp-WW Soll\n! 0x0024 0x0004 01.07 Temp-WW Ist\n! 0x0028 0x0004 01.08 Temp-Raum\n! 0x002C 0x0004 01.09 Temp-Raum-1h\n! 0x0030 0x0004 01.10 Temp-WQuelle-Ein\n! 0x0034 0x0004 01.11 Temp-WQuelle-Aus\n! 0x0038 0x0004 01.12 Temp-Verdampfer\n! 0x003C 0x0004 01.13 Temp-Kondensator\n! 0x0040 0x0004 01.14 Temp-Saugleitung\n! 0x0044 0x0004 01.15 Temp-frei\n! 0x0048 0x0004 01.16 Druck-Verdampfer\n! 0x004C 0x0004 01.17 Druck-Kondensator\n! 0x00F3 0x0001 02.00 Handabschaltung\n! 0x00F4 0x0004 02.01 Hzg Einsatzzeitpunkt Sollwert\n! 0x00F8 0x0004 02.02 Hzg Ruecklauf Sollwert am Einsatzp.\n! 0x00FC 0x0004 02.03 Kennline Steigung Soll\n! 0x0100 0x0004 02.04 Kennline Obere Begrenzung\n! 0x0050 0x0004 02.05 Hzg: Temp Ruecklauf Soll\n! 0x0054 0x0004 02.06 Hzg: Temp Ruecklauf Ist\n! 0x0104 0x0001 02.07 Sollwertanhebung 4k fuer 24 Stunden\n! 0x0105 0x0004 02.08 Pilotraum Sollwert\n! 0x0109 0x0001 02.09 Pilotraum Faktor\n! 0x010A 0x0004 02.10 Externe Anhebung\n! 0x010E 0x0003 02.11 Freigabe Heizung\n! 0x0111 0x0003 02.12 Sperren Heizung\n! 0x0114 0x0003 02.13 Sollwertaenderung Ein\n! 0x0117 0x0003 02.14 Sollwertaenderung Aus\n! 0x011A 0x0004 02.15 St. 2 Kl. Obere Begrenzung\n! 0x011E 0x0004 02.16 Kennlinie Hysterese\n! 0x0122 0x0001 02.17 Pumpen Nachlaufzeit\n! 0x0123 0x0001 03.00 Abschaltung\n! 0x0124 0x0004 03.01 Klg Einsatzzeitpunkt\n! 0x0128 0x0004 03.02 Ruecklauftemp. Sollwert am Einsatzzeitp.\n! 0x012C 0x0004 03.03 Klg Kennlinie Steigung Soll\n! 0x0130 0x0004 03.04 Kennlinie untere Begrenzung\n! 0x0058 0x0004 03.05 Klg: Temp Ruecklauf Soll\n! 0x005C 0x0004 03.06 Klg: Temp Ruecklauf Ist\n! 0x0134 0x0001 04.00 Abschaltung\n! 0x0135 0x0003 04.01 Zeit ein\n! 0x0138 0x0003 04.02 Zeit aus\n! 0x0060 0x0004 04.03 WW: Temp Ist\n! 0x013b 0x0004 04.04 Warmwasser Soll\n! 0x013F 0x0004 04.05 Beckenwasser Temperatur Soll\n! 0x0143 0x0004 04.06 Warmwasser Hysterese\n! 0x0147 0x0004 04.07 Beckenwasser Hysterese\n! 0x0064 0x0003 05.00 Uhrzeit\n! 0x0067 0x0003 05.01 Datum\n! 0x006A 0x0004 05.02 Betriebsstunden Kompressor\n! 0x006E 0x0004 05.03 Betriebsstunden Heizbetrieb\n! 0x0072 0x0004 05.04 Betriebsstunden Warmwasserbetrieb\n! 0x0076 0x0004 05.05 Betriebsstunden Stufe 2\n! 0x007A 0x0003 05.06 Messbeginn Zeit Kompressor\n! 0x007D 0x0003 05.07 Messbeginn Datum Kompressor\n! 0x0080 0x0003 05.08 Messbeginn Zeit Pumpen\n! 0x0083 0x0003 05.09 Messbeginn Datum Pumpen\n! 0x0086 0x0001 05.10 Betriebsstunden Reset Kompressor\n! 0x0087 0x0001 05.11 Betriebsstunden Reset Pumpen\n! 0x0088 0x0001 06.00 Kennwort\n! 0x0089 0x0001 06.01 Werkseinstellung\n! 0x014B 0x0001 06.02 Modem Klingelzeichen\n! 0x014C 0x0001 06.03 Fremdzugriff\n! 0x014D 0x0001 06.04 Schluesselnummer\n! 0x014E 0x0003 06.05 SetBetriebsMode\n! 0x008A 0x0001 06.06 Reset Waermepumpe\n! 0x0151 0x0001 06.07 Hzg: Externe Freigabe\n! 0x0152 0x0004 06.08 Hzg: Externe Ruecklaufsteuerung\n! 0x0156 0x0004 06.09 St2: TempQAus < Min\n! 0x015A 0x0004 06.10 St2: TempVerd < Min\n! 0x015E 0x0001 06.11 Estrich Aufheizen\n! 0x015F 0x0001 06.12 Hzg: Externe Steuerung\n! 0x0160 0x0001 06.13 St2 bei EVU Absch.\n! 0x0161 0x0001 06.14 Frg. Beckenwasser\n! 0x0162 0x0004 06.15 Scale Faktor\n! 0x0166 0x0004 06.16 Offset Niederdr.\n! 0x016A 0x0004 06.17 Offset Hochdr.\n! 0x016E 0x0001 06.18 DO-Handkanal\n! 0x016F 0x0001 06.19 DO-Handkanal Ein\n! 0x008B 0x0002 06.20 CRC-Summe\n! 0x0174 0x0001 06.21 Neu-Start\n! 0x0175 0x0001 06.22 Run-Flag\n! 0x008E 0x0002 06.23 Display Zeile 1\n! 0x0090 0x0001 06.24 Display Zeile 2\n! 0x0091 0x0003 07.00 Ausfall Zeit\n! 0x0094 0x0003 07.01 Ausfall Datum\n! 0x0097 0x0001 07.02 Ausfall Betriebszustaende\n! 0x0098 0x0001 07.03 Ausfall DO Buffer\n! 0x0099 0x0001 07.04 Ausfall DI Buffer\n! 0x009A 0x0001 07.05 Ausfall AI Error\n! 0x009B 0x0001 07.06 Ausfall AI DI\n! 0x009C 0x0004 07.07 Ausfall AI Temp Aussen\n! 0x00A0 0x0004 07.08 Ausfall AI Temp WQ Ein\n! 0x00A4 0x0004 07.09 Ausfall AI Temp WQ Aus\n! 0x00A8 0x0004 07.10 Ausfall AI Temp Verdampfer\n! 0x00AC 0x0004 07.11 Ausfall AI Temp Heizung Ein\n! 0x00B0 0x0004 07.12 Ausfall AI Temp Heizung Aus\n! 0x00B4 0x0004 07.13 Ausfall AI Temp Kondensation\n! 0x00B8 0x0004 07.14 Ausfall AI Temp Warmwasser\n! 0x00BC 0x0001 07.15 Ausfall Term AI Error\n! 0x00BD 0x0001 07.16 Ausfall Term AI Di\n! 0x00BE 0x0004 07.17 Ausfall AI Temp Raum\n! 0x00C2 0x0001 07.18 Clear Ausfälle\n! 0x00C3 0x0001 08.00 Unterbrechungen\n! 0x00C4 0x0001 08.01 Warnung Eingangsseite\n! 0x00C5 0x0001 08.02 Warnung Ausgangsseite\n! 0x00C6 0x0001 08.03 Warnung Sonstige\n! 0x00C7 0x0001 08.04 Ausfall\n! 0x00C8 0x0001 08.05 AI Error Fuehler Ausfall\n! 0x00C9 0x0001 08.06 AI Di Fuehler defekt\n! 0x00C9 0x0003 08.07 Kontrollwert fuer Fuehlerkalibrierung\n! 0x00CC 0x0001 08.08 Unterbrechung Raumfuehler\n! 0x00CD 0x0001 08.09 Kurzschluss Raumfuehler\n! 0x0171 0x0001 08.10 Unterbrechung Warung Eingangsseite\n! 0x0172 0x0001 08.11 Unterbrechung Warung Ausgangsseite\n! 0x0173 0x0001 08.12 Unterbrechung Warung Ausgangsseite\n! 0x00CE 0x0001 09.00 Betriebszustaende\n! 0x00CF 0x0001 09.01 DO-Buffer\n! 0x00D0 0x0001 09.02 DI-Buffer\n! 0x00D1 0x0003 09.03 Gesamtstatus\n! 0x00D4 0x0003 09.04 Status Verriegelung\n! 0x00D7 0x0003 09.05 Status Heizung\n! 0x00DF 0x0001 09.10 Mode Heizung\n! 0x00E0 0x0001 09.11 Mode Kuehlung\n! 0x00E1 0x0001 09.12 Mode Warmwasser\n! 0x0000 0x0001 10.00 Logger Zyklus\n! 0x0000 0x0001 10.01 Initialisierung des Loggers\n! 0x0000 0x0004 10.02 Speicherfehler des Loggers\n! 0x00E3 0x0003 10.03 Uhrzeit der Initialisierung\n! 0x00E6 0x0003 10.04 Datum der Initialisierung\n! 0x00E9 0x0002 10.05 Maximale Anzahl der Datensaetze\n! 0x00EB 0x0003 10.06 Laufende Nr. aktueller Datensatz\n! 0x00ED 0x0002 10.07 Anzahl gespeicherter Datensaetze\n! 0x00EF 0x0002 10.08 Groesse eines Datensatzes\n! 0x00F1 0x0002 10.09 Max Groesse das Datenspeicher",
         "x": 1400,
-        "y": 660,
+        "y": 680,
         "wires": []
     },
     {
@@ -2399,7 +2469,7 @@
         "name": "Protokoll",
         "info": "https://github.com/mwllgr/fhem-waterkotte-resuemat-cd4",
         "x": 1400,
-        "y": 700,
+        "y": 720,
         "wires": []
     },
     {
@@ -2518,6 +2588,164 @@
         ]
     },
     {
+        "id": "273ec449ca230890",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "Notes",
+        "info": "\"Mode-Heizung\" => [\"UnterbrFuehlerfehler\", \"KeinBedarf\", \"Unterdrueckt\", \"Zeitprog\", \"Sommer\", \"SchnellAufhz\", \"ExtAnheb\", \"Normal\"],\n\"Mode-Wasser\" => [\"\", \"\", \"\", \"Unterdrueckt\", \"UnterbrFuehlerfehler\", \"KeinBedarf\", \"Zeitprog\", \"Normal\"],\n\"Betriebszustaende\" => [\"Ext. Steuerung\", \"\", \"\", \"Unterbrechung\", \"Hand-Betrieb\", \"St2-Betrieb\", \"Hz-Betrieb\", \"Ww-Betrieb\"],\n\n\"Do-Buffer\" => [\"Pumpe-Quelle\", \"Pumpe-Ww\", \"Pumpe-Hz\", \"St2\", \"Kurbelwannenhz\", \"Alarm\", \"Kompr-1\", \"Magnetventil\"],\n\"Di-Buffer\" => [\"Ext-Abschaltung\", \"Ext-Sollwertbeeinflussung\", \"\", \"Sole-Minimum\", \"Pumpe-Quelle\", \"HD-Pressostat\", \"ND-Pressostat\", \"Oeldruck/Kompr-Störung\"],",
+        "x": 1390,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "c3071ce12ab55a86",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "Temp Verdampfung",
+        "entityConfig": "c7f2dff221c0cc99",
+        "version": 0,
+        "state": "payload",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1850,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "10df2fcd4015840f",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "Temp Kondensation",
+        "entityConfig": "40921054e6119397",
+        "version": 0,
+        "state": "payload",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 2100,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ea789f186d102163",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "Temp Saugleitung",
+        "entityConfig": "2acd941050defa26",
+        "version": 0,
+        "state": "payload",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 2350,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b19de36d41c82225",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "Druck Verdampfer",
+        "entityConfig": "1ae1830f27031885",
+        "version": 0,
+        "state": "payload",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1850,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "49957631c7e9aa7f",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "Druck Kondensator",
+        "entityConfig": "078479642d35bfe3",
+        "version": 0,
+        "state": "payload",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 2090,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "77e2eebd48189a5a",
+        "type": "server-state-changed",
+        "z": "f6f2187d.f17ca8",
+        "name": "Zeit syncgronisieren",
+        "server": "77f235a2.d6e4c4",
+        "version": 6,
+        "outputs": 1,
+        "exposeAsEntityConfig": "",
+        "entities": {
+            "entity": [
+                "input_button.waterkotte_sync_time"
+            ],
+            "substring": [],
+            "regex": []
+        },
+        "outputInitially": false,
+        "stateType": "str",
+        "ifState": "",
+        "ifStateType": "str",
+        "ifStateOperator": "is",
+        "outputOnlyOnStateChange": true,
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 150,
+        "y": 1560,
+        "wires": [
+            [
+                "bbaf584f98238585"
+            ]
+        ]
+    },
+    {
         "id": "4130a6f71c9ed385",
         "type": "ha-entity-config",
         "server": "77f235a2.d6e4c4",
@@ -2528,7 +2756,7 @@
         "haConfig": [
             {
                 "property": "name",
-                "value": "Heizung Temperatur Aussen"
+                "value": "Waterkotte Heizung Temperatur Aussen"
             },
             {
                 "property": "icon",
@@ -2552,7 +2780,7 @@
             },
             {
                 "property": "state_class",
-                "value": ""
+                "value": "measurement"
             }
         ],
         "resend": false,
@@ -2569,7 +2797,7 @@
         "haConfig": [
             {
                 "property": "name",
-                "value": "Temperatur Aussen 24h"
+                "value": "Waterkotte Temperatur Aussen 24h"
             },
             {
                 "property": "icon",
@@ -2593,7 +2821,7 @@
             },
             {
                 "property": "state_class",
-                "value": ""
+                "value": "measurement"
             }
         ],
         "resend": false,
@@ -2610,7 +2838,7 @@
         "haConfig": [
             {
                 "property": "name",
-                "value": "Heizung WW Ist"
+                "value": "Waterkotte Heizung WW Ist"
             },
             {
                 "property": "icon",
@@ -2651,7 +2879,7 @@
         "haConfig": [
             {
                 "property": "name",
-                "value": "Heizung WQuelle Ein"
+                "value": "Waterkotte Heizung WQuelle Ein"
             },
             {
                 "property": "icon",
@@ -2675,7 +2903,7 @@
             },
             {
                 "property": "state_class",
-                "value": ""
+                "value": "measurement"
             }
         ],
         "resend": false,
@@ -2692,7 +2920,7 @@
         "haConfig": [
             {
                 "property": "name",
-                "value": "Heizung WQuelle Aus"
+                "value": "Waterkotte Heizung WQuelle Aus"
             },
             {
                 "property": "icon",
@@ -2716,7 +2944,7 @@
             },
             {
                 "property": "state_class",
-                "value": ""
+                "value": "measurement"
             }
         ],
         "resend": false,
@@ -2733,7 +2961,7 @@
         "haConfig": [
             {
                 "property": "name",
-                "value": "Heizung Temperatur Vorlauf Ist"
+                "value": "Waterkotte Heizung Temperatur Vorlauf Ist"
             },
             {
                 "property": "icon",
@@ -2774,7 +3002,7 @@
         "haConfig": [
             {
                 "property": "name",
-                "value": "Heizung Temperatur Rücklauf Ist"
+                "value": "Waterkotte Heizung Temperatur Rücklauf Ist"
             },
             {
                 "property": "icon",
@@ -2815,7 +3043,7 @@
         "haConfig": [
             {
                 "property": "name",
-                "value": "Heizung Temperatur Rücklauf Soll"
+                "value": "Waterkotte Heizung Temperatur Rücklauf Soll"
             },
             {
                 "property": "icon",
@@ -2856,7 +3084,7 @@
         "haConfig": [
             {
                 "property": "name",
-                "value": "Betriebsstunden Kompressor"
+                "value": "Waterkotte Betriebsstunden Kompressor"
             },
             {
                 "property": "icon",
@@ -2880,7 +3108,7 @@
             },
             {
                 "property": "state_class",
-                "value": ""
+                "value": "total_increasing"
             }
         ],
         "resend": false,
@@ -2897,7 +3125,7 @@
         "haConfig": [
             {
                 "property": "name",
-                "value": "Heizung Betriebsstunden Warmwasser"
+                "value": "Waterkotte Heizung Betriebsstunden Warmwasser"
             },
             {
                 "property": "icon",
@@ -2921,7 +3149,7 @@
             },
             {
                 "property": "state_class",
-                "value": ""
+                "value": "total_increasing"
             }
         ],
         "resend": false,
@@ -2938,7 +3166,7 @@
         "haConfig": [
             {
                 "property": "name",
-                "value": "Heizung Betriebsstunden Kompressor"
+                "value": "Waterkotte Heizung Betriebsstunden Kompressor"
             },
             {
                 "property": "icon",
@@ -2962,7 +3190,7 @@
             },
             {
                 "property": "state_class",
-                "value": ""
+                "value": "total_increasing"
             }
         ],
         "resend": false,
@@ -2979,7 +3207,7 @@
         "haConfig": [
             {
                 "property": "name",
-                "value": "WW läuft"
+                "value": "Waterkotte WW läuft"
             },
             {
                 "property": "icon",
@@ -3012,7 +3240,7 @@
         "haConfig": [
             {
                 "property": "name",
-                "value": "Heizung läuft"
+                "value": "Waterkotte Heizung läuft"
             },
             {
                 "property": "icon",
@@ -3045,7 +3273,7 @@
         "haConfig": [
             {
                 "property": "name",
-                "value": "Betriebsstunden Stufe 2"
+                "value": "Waterkotte Betriebsstunden Stufe 2"
             },
             {
                 "property": "icon",
@@ -3069,7 +3297,7 @@
             },
             {
                 "property": "state_class",
-                "value": ""
+                "value": "total_increasing"
             }
         ],
         "resend": false,
@@ -3109,7 +3337,7 @@
         "haConfig": [
             {
                 "property": "name",
-                "value": "HeizungAbschaltung"
+                "value": "Waterkotte HeizungAbschaltung"
             },
             {
                 "property": "icon",
@@ -3142,7 +3370,7 @@
         "haConfig": [
             {
                 "property": "name",
-                "value": "WWAbschaltung"
+                "value": "Waterkotte WWAbschaltung"
             },
             {
                 "property": "icon",
@@ -3175,7 +3403,7 @@
         "haConfig": [
             {
                 "property": "name",
-                "value": "HeizungSollTemperatur"
+                "value": "Waterkotte HeizungSollTemperatur"
             },
             {
                 "property": "icon",
@@ -3216,7 +3444,7 @@
         "haConfig": [
             {
                 "property": "name",
-                "value": "HeizungEinsatzTemp"
+                "value": "Waterkotte HeizungEinsatzTemp"
             },
             {
                 "property": "icon",
@@ -3257,7 +3485,7 @@
         "haConfig": [
             {
                 "property": "name",
-                "value": "WarmwasserSoll"
+                "value": "Waterkotte WarmwasserSoll"
             },
             {
                 "property": "icon",
@@ -3298,7 +3526,7 @@
         "haConfig": [
             {
                 "property": "name",
-                "value": "KlgAbschaltung"
+                "value": "Waterkotte KlgAbschaltung"
             },
             {
                 "property": "icon",
@@ -3331,7 +3559,7 @@
         "haConfig": [
             {
                 "property": "name",
-                "value": "KlgSollTemperatur"
+                "value": "Waterkotte KlgSollTemperatur"
             },
             {
                 "property": "icon",
@@ -3372,7 +3600,7 @@
         "haConfig": [
             {
                 "property": "name",
-                "value": "KlgEinsatzTemperatur"
+                "value": "Waterkotte KlgEinsatzTemperatur"
             },
             {
                 "property": "icon",
@@ -3413,7 +3641,7 @@
         "haConfig": [
             {
                 "property": "name",
-                "value": "Kuehlung läuft"
+                "value": "Waterkotte Kuehlung läuft"
             },
             {
                 "property": "icon",
@@ -3446,7 +3674,7 @@
         "haConfig": [
             {
                 "property": "name",
-                "value": "DatumUhrzeit"
+                "value": "Waterkotte DatumUhrzeit"
             },
             {
                 "property": "icon",
@@ -3477,7 +3705,212 @@
         "debugEnabled": false
     },
     {
-        "id": "cde0bb60b4bdba6e",
+        "id": "c7f2dff221c0cc99",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Temp Verdampfung",
+        "version": 6,
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte Temp Verdampfung"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": "measurement"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "40921054e6119397",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Temp Kondensation",
+        "version": 6,
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte Temp Kondensation"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": "measurement"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "2acd941050defa26",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Temp Saugleitung",
+        "version": 6,
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte Temp Saugleitung"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": "measurement"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "1ae1830f27031885",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Druck Verdampfer",
+        "version": 6,
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte Druck Verdampfer"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "pressure"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "bar"
+            },
+            {
+                "property": "state_class",
+                "value": "measurement"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "078479642d35bfe3",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Druck Kondensator",
+        "version": 6,
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte Druck Kondensator"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "pressure"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "bar"
+            },
+            {
+                "property": "state_class",
+                "value": "measurement"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "7c712c459270889a",
         "type": "global-config",
         "env": [],
         "modules": {
