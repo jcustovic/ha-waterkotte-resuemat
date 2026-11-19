@@ -1,0 +1,58 @@
+{
+  "id": "1794654980775",
+  "alias": "WW Boost - Ende",
+  "description": "Beendet den WW Boost: stellt die Originalzeiten wieder her, sobald WW Ist wieder (WW Soll - 3) Grad erreicht, oder spaetestens nach 2h als Sicherheit.",
+  "triggers": [
+    {
+      "trigger": "template",
+      "id": "temp_ok",
+      "value_template": "{{ states('sensor.heizung_ww_ist_2') | float(0) >= (states('sensor.heizungsolltemperatur_2') | float(50) - 3) }}",
+      "for": {
+        "minutes": 1
+      }
+    },
+    {
+      "trigger": "state",
+      "id": "timeout",
+      "entity_id": "input_boolean.ww_boost_aktiv",
+      "to": "on",
+      "for": {
+        "hours": 2
+      }
+    }
+  ],
+  "conditions": [
+    {
+      "condition": "state",
+      "entity_id": "input_boolean.ww_boost_aktiv",
+      "state": "on"
+    }
+  ],
+  "actions": [
+    {
+      "action": "input_datetime.set_datetime",
+      "target": {
+        "entity_id": "input_datetime.ww_zeit_ein"
+      },
+      "data": {
+        "time": "{{ states('input_datetime.ww_zeit_ein_gespeichert') }}"
+      }
+    },
+    {
+      "action": "input_datetime.set_datetime",
+      "target": {
+        "entity_id": "input_datetime.ww_zeit_aus"
+      },
+      "data": {
+        "time": "{{ states('input_datetime.ww_zeit_aus_gespeichert') }}"
+      }
+    },
+    {
+      "action": "input_boolean.turn_off",
+      "target": {
+        "entity_id": "input_boolean.ww_boost_aktiv"
+      }
+    }
+  ],
+  "mode": "single"
+}

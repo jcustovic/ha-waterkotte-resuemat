@@ -1,10 +1,1810 @@
 [
     {
+        "id": "be3aa0b01f45d84b",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "f6f2187d.f17ca8",
         "type": "tab",
         "label": "Waterkotte Wärmepumpe",
         "disabled": false,
         "info": ""
+    },
+    {
+        "id": "77f235a2.d6e4c4",
+        "type": "server",
+        "name": "Home Assistant Local",
+        "version": 6,
+        "addon": false,
+        "rejectUnauthorizedCerts": true,
+        "ha_boolean": [
+            "y",
+            "yes",
+            "true",
+            "on",
+            "home",
+            "open"
+        ],
+        "connectionDelay": true,
+        "cacheJson": true,
+        "heartbeat": false,
+        "heartbeatInterval": "30",
+        "areaSelector": "friendlyName",
+        "deviceSelector": "friendlyName",
+        "entitySelector": "friendlyName",
+        "statusSeparator": "at: ",
+        "statusYear": "hidden",
+        "statusMonth": "short",
+        "statusDay": "numeric",
+        "statusHourCycle": "h23",
+        "statusTimeFormat": "h:m",
+        "enableGlobalContextStore": true
+    },
+    {
+        "id": "4130a6f71c9ed385",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Heizung Temperatur Aussen",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte Heizung Temperatur Aussen"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": "measurement"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "4f2ff1b78c86806e",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Temperatur Aussen 24h",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte Temperatur Aussen 24h"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": "measurement"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "8092504d32e09ae4",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Heizung WW Ist",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte Heizung WW Ist"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "e0af6c7e655ecb0e",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Heizung WQuelle Ein",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte Heizung WQuelle Ein"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": "measurement"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "290b86f94cd4b102",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Heizung WQuelle Aus",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte Heizung WQuelle Aus"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": "measurement"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "100d4d2e806eb6e7",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Heizung Temperatur Rücklauf Soll",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte Heizung Temperatur Rücklauf Soll"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "f97adacb2443c90d",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Heizung Temperatur Rücklauf Ist",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte Heizung Temperatur Rücklauf Ist"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "dac7547e92f59e73",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Heizung Betriebsstunden Kompressor",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte Heizung Betriebsstunden Kompressor"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "duration"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "h"
+            },
+            {
+                "property": "state_class",
+                "value": "total_increasing"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "6bf7dc1e8e9570ef",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Betriebsstunden Kompressor",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte Betriebsstunden Kompressor"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "duration"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "h"
+            },
+            {
+                "property": "state_class",
+                "value": "total_increasing"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "05f0ccaa4fc0536c",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Heizung Betriebsstunden Warmwasser",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte Heizung Betriebsstunden Warmwasser"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "duration"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "h"
+            },
+            {
+                "property": "state_class",
+                "value": "total_increasing"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "67219fc8d842b0cf",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Heizung Temperatur Vorlauf Ist",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte Heizung Temperatur Vorlauf Ist"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "08d57f5254b27c52",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Heizung läuft",
+        "version": "6",
+        "entityType": "binary_sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte Heizung läuft"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "heat"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "90d12860632310f7",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "WW läuft",
+        "version": "6",
+        "entityType": "binary_sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte WW läuft"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "heat"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "690cf582d687f6aa",
+        "type": "serial-port",
+        "name": "/dev/ttyUSB0",
+        "serialport": "/dev/serial/by-id/usb-Prolific_Technology_Inc._USB-Serial_Controller-if00-port0",
+        "serialbaud": "9600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "2000",
+        "bin": "bin",
+        "out": "time",
+        "addchar": "",
+        "responsetimeout": "10000"
+    },
+    {
+        "id": "12dc906c6496795b",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "KlgAbschaltung",
+        "version": "6",
+        "entityType": "binary_sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte KlgAbschaltung"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "f78f5049d8579dd8",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "WWAbschaltung",
+        "version": "6",
+        "entityType": "binary_sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte WWAbschaltung"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "298d196fdd0630ec",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "WarmwasserSoll",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte WarmwasserSoll"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "658233d2df8ca1a5",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Betriebsstunden Stufe 2",
+        "version": 6,
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte Betriebsstunden Stufe 2"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "duration"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "h"
+            },
+            {
+                "property": "state_class",
+                "value": "total_increasing"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "a3391cda5ddbcbea",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "HeizungAbschaltung",
+        "version": 6,
+        "entityType": "binary_sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte HeizungAbschaltung"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "b0d499086969e38a",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "HeizungSollTemperatur",
+        "version": 6,
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte HeizungSollTemperatur"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "6b6b5ec45d6fcaab",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "HeizungEinsatzTemp",
+        "version": 6,
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte HeizungEinsatzTemp"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "00470c391472195a",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "KlgSollTemperatur",
+        "version": 6,
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte KlgSollTemperatur"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "79db91880beffbbe",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "KlgEinsatzTemperatur",
+        "version": 6,
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte KlgEinsatzTemperatur"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "89e0e46dd868eda8",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Kuehlung läuft",
+        "version": 6,
+        "entityType": "binary_sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte Kuehlung läuft"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "cold"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "4eb32a6013505108",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "DatumUhrzeit",
+        "version": 6,
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte DatumUhrzeit"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "timestamp"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": ""
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "c7f2dff221c0cc99",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Temp Verdampfung",
+        "version": 6,
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte Temp Verdampfung"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": "measurement"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "40921054e6119397",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Temp Kondensation",
+        "version": 6,
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte Temp Kondensation"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": "measurement"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "2acd941050defa26",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Temp Saugleitung",
+        "version": 6,
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte Temp Saugleitung"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "temperature"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°C"
+            },
+            {
+                "property": "state_class",
+                "value": "measurement"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "1ae1830f27031885",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Druck Verdampfer",
+        "version": 6,
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte Druck Verdampfer"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "pressure"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "bar"
+            },
+            {
+                "property": "state_class",
+                "value": "measurement"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "078479642d35bfe3",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Druck Kondensator",
+        "version": 6,
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte Druck Kondensator"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": "pressure"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "bar"
+            },
+            {
+                "property": "state_class",
+                "value": "measurement"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "wk0401cfg0001",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "WW Zeit ein",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte WW Zeit ein"
+            },
+            {
+                "property": "icon",
+                "value": "mdi:clock-start"
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": ""
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": true,
+        "debugEnabled": false
+    },
+    {
+        "id": "wk0402cfg0001",
+        "type": "ha-entity-config",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "WW Zeit aus",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte WW Zeit aus"
+            },
+            {
+                "property": "icon",
+                "value": "mdi:clock-end"
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": ""
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": true,
+        "debugEnabled": false
+    },
+    {
+        "id": "wkHK_cfg",
+        "type": "ha-entity-config",
+        "z": "f6f2187d.f17ca8",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Waterkotte DO-Handkanal",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte DO-Handkanal"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": "diagnostic"
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": ""
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": true,
+        "debugEnabled": false
+    },
+    {
+        "id": "wkHKE_cfg",
+        "type": "ha-entity-config",
+        "z": "f6f2187d.f17ca8",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Waterkotte DO-Handkanal-Ein",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte DO-Handkanal-Ein"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": "diagnostic"
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": ""
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": true,
+        "debugEnabled": false
+    },
+    {
+        "id": "wkUB_cfg",
+        "type": "ha-entity-config",
+        "z": "f6f2187d.f17ca8",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Waterkotte Unterbrechungen Byte",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte Unterbrechungen Byte"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": "diagnostic"
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": ""
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": true,
+        "debugEnabled": false
+    },
+    {
+        "id": "wkWE_cfg",
+        "type": "ha-entity-config",
+        "z": "f6f2187d.f17ca8",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Waterkotte Warnung-Eingang Byte",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte Warnung-Eingang Byte"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": "diagnostic"
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": ""
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": true,
+        "debugEnabled": false
+    },
+    {
+        "id": "wkWA_cfg",
+        "type": "ha-entity-config",
+        "z": "f6f2187d.f17ca8",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Waterkotte Warnung-Ausgang Byte",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte Warnung-Ausgang Byte"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": "diagnostic"
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": ""
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": true,
+        "debugEnabled": false
+    },
+    {
+        "id": "wkWS_cfg",
+        "type": "ha-entity-config",
+        "z": "f6f2187d.f17ca8",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Waterkotte Warnung-Sonstige Byte",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte Warnung-Sonstige Byte"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": "diagnostic"
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": ""
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": true,
+        "debugEnabled": false
+    },
+    {
+        "id": "wkAF_cfg",
+        "type": "ha-entity-config",
+        "z": "f6f2187d.f17ca8",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Waterkotte Ausfall Byte",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte Ausfall Byte"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": "diagnostic"
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": ""
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": true,
+        "debugEnabled": false
+    },
+    {
+        "id": "wkBZ_cfg",
+        "type": "ha-entity-config",
+        "z": "f6f2187d.f17ca8",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Waterkotte Betriebszustaende Byte",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte Betriebszustaende Byte"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": "diagnostic"
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": ""
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": true,
+        "debugEnabled": false
+    },
+    {
+        "id": "wkDO_cfg",
+        "type": "ha-entity-config",
+        "z": "f6f2187d.f17ca8",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Waterkotte DO-Buffer Byte",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte DO-Buffer Byte"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": "diagnostic"
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": ""
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": true,
+        "debugEnabled": false
+    },
+    {
+        "id": "wkDI_cfg",
+        "type": "ha-entity-config",
+        "z": "f6f2187d.f17ca8",
+        "server": "77f235a2.d6e4c4",
+        "deviceConfig": "",
+        "name": "Waterkotte DI-Buffer Byte",
+        "version": "6",
+        "entityType": "sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Waterkotte DI-Buffer Byte"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": "diagnostic"
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": ""
+            },
+            {
+                "property": "state_class",
+                "value": ""
+            }
+        ],
+        "resend": true,
+        "debugEnabled": false
+    },
+    {
+        "id": "f6d5b2313662c840",
+        "type": "inject",
+        "z": "be3aa0b01f45d84b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 100,
+        "wires": [
+            [
+                "bff131c7d0ac35e4"
+            ]
+        ]
+    },
+    {
+        "id": "d2af44e3cea5159f",
+        "type": "inject",
+        "z": "be3aa0b01f45d84b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 220,
+        "wires": [
+            [
+                "bff131c7d0ac35e4"
+            ]
+        ]
+    },
+    {
+        "id": "bff131c7d0ac35e4",
+        "type": "delay",
+        "z": "be3aa0b01f45d84b",
+        "name": "",
+        "pauseType": "queue",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "10",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 540,
+        "y": 140,
+        "wires": [
+            [
+                "3ce1630a52166ded"
+            ]
+        ]
+    },
+    {
+        "id": "3ce1630a52166ded",
+        "type": "debug",
+        "z": "be3aa0b01f45d84b",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 140,
+        "wires": []
     },
     {
         "id": "3cc11d24.ff01a2",
@@ -21,7 +1821,7 @@
         "type": "tcp request",
         "z": "f6f2187d.f17ca8",
         "name": "query data TCP",
-        "server": "raspberrypi",
+        "server": "192.168.178.68",
         "port": "3333",
         "out": "time",
         "ret": "buffer",
@@ -377,6 +2177,78 @@
                 "offsetbit": 1,
                 "scale": "1",
                 "mask": ""
+            },
+            {
+                "type": "byte",
+                "name": "Betriebszustaende",
+                "offset": 211,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "byte",
+                "name": "DO-Buffer",
+                "offset": 212,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "byte",
+                "name": "DI-Buffer",
+                "offset": 213,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "byte",
+                "name": "Unterbrechungen",
+                "offset": 200,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "byte",
+                "name": "Warnung-Eingang",
+                "offset": 201,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "byte",
+                "name": "Warnung-Ausgang",
+                "offset": 202,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "byte",
+                "name": "Warnung-Sonstige",
+                "offset": 203,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "byte",
+                "name": "Ausfall",
+                "offset": 204,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
             }
         ],
         "swap1": "",
@@ -392,7 +2264,7 @@
         "multipleResult": true,
         "fanOutMultipleResult": true,
         "setTopic": true,
-        "outputs": 24,
+        "outputs": 32,
         "x": 1400,
         "y": 460,
         "wires": [
@@ -465,6 +2337,30 @@
             ],
             [
                 "49957631c7e9aa7f"
+            ],
+            [
+                "wkBZ_sens"
+            ],
+            [
+                "wkDO_sens"
+            ],
+            [
+                "wkDI_sens"
+            ],
+            [
+                "wkUB_sens"
+            ],
+            [
+                "wkWE_sens"
+            ],
+            [
+                "wkWA_sens"
+            ],
+            [
+                "wkWS_sens"
+            ],
+            [
+                "wkAF_sens"
             ]
         ]
     },
@@ -474,9 +2370,11 @@
         "z": "f6f2187d.f17ca8",
         "name": "Temperatur Aussen",
         "entityConfig": "4130a6f71c9ed385",
-        "version": 0,
+        "version": 1,
         "state": "payload",
         "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
         "attributes": [],
         "inputOverride": "allow",
         "outputProperties": [],
@@ -493,9 +2391,11 @@
         "d": true,
         "name": "Temperatur WW Soll",
         "entityConfig": "",
-        "version": 0,
+        "version": 1,
         "state": "payload",
         "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
         "attributes": [],
         "inputOverride": "allow",
         "outputProperties": [],
@@ -511,9 +2411,11 @@
         "z": "f6f2187d.f17ca8",
         "name": "Temperatur Aussen 24h",
         "entityConfig": "4f2ff1b78c86806e",
-        "version": 0,
+        "version": 1,
         "state": "payload",
         "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
         "attributes": [],
         "inputOverride": "allow",
         "outputProperties": [],
@@ -529,9 +2431,11 @@
         "z": "f6f2187d.f17ca8",
         "name": "Temperatur WW Ist",
         "entityConfig": "8092504d32e09ae4",
-        "version": 0,
+        "version": 1,
         "state": "payload",
         "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
         "attributes": [],
         "inputOverride": "allow",
         "outputProperties": [],
@@ -547,9 +2451,11 @@
         "z": "f6f2187d.f17ca8",
         "name": "Temperatur WQuelle Ein",
         "entityConfig": "e0af6c7e655ecb0e",
-        "version": 0,
+        "version": 1,
         "state": "payload",
         "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
         "attributes": [],
         "inputOverride": "allow",
         "outputProperties": [],
@@ -565,9 +2471,11 @@
         "z": "f6f2187d.f17ca8",
         "name": "Temperatur WQuelle Aus",
         "entityConfig": "290b86f94cd4b102",
-        "version": 0,
+        "version": 1,
         "state": "payload",
         "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
         "attributes": [],
         "inputOverride": "allow",
         "outputProperties": [],
@@ -583,9 +2491,11 @@
         "z": "f6f2187d.f17ca8",
         "name": "Temperatur Vorlauf Ist",
         "entityConfig": "67219fc8d842b0cf",
-        "version": 0,
+        "version": 1,
         "state": "payload",
         "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
         "attributes": [],
         "inputOverride": "allow",
         "outputProperties": [],
@@ -601,9 +2511,11 @@
         "z": "f6f2187d.f17ca8",
         "name": "Temperatur Rücklauf Ist",
         "entityConfig": "f97adacb2443c90d",
-        "version": 0,
+        "version": 1,
         "state": "payload",
         "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
         "attributes": [],
         "inputOverride": "allow",
         "outputProperties": [],
@@ -619,9 +2531,11 @@
         "z": "f6f2187d.f17ca8",
         "name": "Temperatur Rücklauf Soll",
         "entityConfig": "100d4d2e806eb6e7",
-        "version": 0,
+        "version": 1,
         "state": "payload",
         "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
         "attributes": [],
         "inputOverride": "allow",
         "outputProperties": [],
@@ -637,9 +2551,11 @@
         "z": "f6f2187d.f17ca8",
         "name": "Betriebsstunden Kompressor",
         "entityConfig": "6bf7dc1e8e9570ef",
-        "version": 0,
+        "version": 1,
         "state": "payload",
         "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
         "attributes": [],
         "inputOverride": "allow",
         "outputProperties": [],
@@ -655,9 +2571,11 @@
         "z": "f6f2187d.f17ca8",
         "name": "Betriebsstunden Warmwasser",
         "entityConfig": "05f0ccaa4fc0536c",
-        "version": 0,
+        "version": 1,
         "state": "payload",
         "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
         "attributes": [],
         "inputOverride": "allow",
         "outputProperties": [],
@@ -673,9 +2591,11 @@
         "z": "f6f2187d.f17ca8",
         "name": "Betriebsstunden Heizung",
         "entityConfig": "dac7547e92f59e73",
-        "version": 0,
+        "version": 1,
         "state": "payload",
         "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
         "attributes": [],
         "inputOverride": "allow",
         "outputProperties": [],
@@ -691,9 +2611,11 @@
         "z": "f6f2187d.f17ca8",
         "name": "WW läuft",
         "entityConfig": "90d12860632310f7",
-        "version": 0,
+        "version": 1,
         "state": "payload[0].bit0",
         "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
         "attributes": [],
         "inputOverride": "allow",
         "outputProperties": [],
@@ -709,9 +2631,11 @@
         "z": "f6f2187d.f17ca8",
         "name": "Heizung läuft",
         "entityConfig": "08d57f5254b27c52",
-        "version": 0,
+        "version": 1,
         "state": "payload[0].bit0",
         "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
         "attributes": [],
         "inputOverride": "allow",
         "outputProperties": [],
@@ -727,9 +2651,11 @@
         "z": "f6f2187d.f17ca8",
         "name": "Betriebsstunden Stufe 2",
         "entityConfig": "658233d2df8ca1a5",
-        "version": 0,
+        "version": 1,
         "state": "payload",
         "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
         "attributes": [],
         "inputOverride": "allow",
         "outputProperties": [],
@@ -979,7 +2905,7 @@
                 "type": "byte",
                 "name": "WWZeitEin",
                 "offset": 71,
-                "length": 2,
+                "length": 3,
                 "offsetbit": 1,
                 "scale": "1",
                 "mask": ""
@@ -1010,6 +2936,24 @@
                 "offsetbit": 1,
                 "scale": "1",
                 "mask": ""
+            },
+            {
+                "type": "byte",
+                "name": "DO-Handkanal",
+                "offset": 128,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "byte",
+                "name": "DO-Handkanal-Ein",
+                "offset": 129,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
             }
         ],
         "swap1": "",
@@ -1025,7 +2969,7 @@
         "multipleResult": true,
         "fanOutMultipleResult": true,
         "setTopic": true,
-        "outputs": 10,
+        "outputs": 12,
         "x": 1330,
         "y": 940,
         "wires": [
@@ -1047,13 +2991,23 @@
             [
                 "6ed07f07793fe405"
             ],
-            [],
-            [],
+            [
+                "wk0401fmt0001"
+            ],
+            [
+                "wk0402fmt0001"
+            ],
             [
                 "ac8389850df7d3df"
             ],
             [
                 "646116f0817790c8"
+            ],
+            [
+                "wkHK_sens"
+            ],
+            [
+                "wkHKE_sens"
             ]
         ]
     },
@@ -1063,9 +3017,11 @@
         "z": "f6f2187d.f17ca8",
         "name": "HeizungAbschaltung",
         "entityConfig": "a3391cda5ddbcbea",
-        "version": 0,
+        "version": 1,
         "state": "payload",
         "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
         "attributes": [],
         "inputOverride": "allow",
         "outputProperties": [],
@@ -1083,9 +3039,11 @@
         "z": "f6f2187d.f17ca8",
         "name": "WWAbschaltung",
         "entityConfig": "f78f5049d8579dd8",
-        "version": 0,
+        "version": 1,
         "state": "payload",
         "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
         "attributes": [],
         "inputOverride": "allow",
         "outputProperties": [],
@@ -1544,7 +3502,7 @@
             {
                 "property": "payload",
                 "propertyType": "msg",
-                "value": "",
+                "value": "string",
                 "valueType": "entityState"
             },
             {
@@ -1594,9 +3552,11 @@
         "z": "f6f2187d.f17ca8",
         "name": "HeizungSollTemperatur",
         "entityConfig": "b0d499086969e38a",
-        "version": 0,
+        "version": 1,
         "state": "payload",
         "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
         "attributes": [],
         "inputOverride": "allow",
         "outputProperties": [],
@@ -1614,9 +3574,11 @@
         "z": "f6f2187d.f17ca8",
         "name": "HeizungEinsatzTemp",
         "entityConfig": "6b6b5ec45d6fcaab",
-        "version": 0,
+        "version": 1,
         "state": "payload",
         "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
         "attributes": [],
         "inputOverride": "allow",
         "outputProperties": [],
@@ -1673,9 +3635,11 @@
         "z": "f6f2187d.f17ca8",
         "name": "WarmwasserSoll",
         "entityConfig": "298d196fdd0630ec",
-        "version": 0,
+        "version": 1,
         "state": "payload",
         "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
         "attributes": [],
         "inputOverride": "allow",
         "outputProperties": [],
@@ -1693,9 +3657,11 @@
         "z": "f6f2187d.f17ca8",
         "name": "KlgAbschaltung",
         "entityConfig": "12dc906c6496795b",
-        "version": 0,
+        "version": 1,
         "state": "payload",
         "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
         "attributes": [],
         "inputOverride": "allow",
         "outputProperties": [],
@@ -2138,7 +4104,7 @@
             {
                 "property": "payload",
                 "propertyType": "msg",
-                "value": "",
+                "value": "string",
                 "valueType": "entityState"
             },
             {
@@ -2327,9 +4293,11 @@
         "z": "f6f2187d.f17ca8",
         "name": "KlgSollTemperatur",
         "entityConfig": "00470c391472195a",
-        "version": 0,
+        "version": 1,
         "state": "payload",
         "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
         "attributes": [],
         "inputOverride": "allow",
         "outputProperties": [],
@@ -2347,9 +4315,11 @@
         "z": "f6f2187d.f17ca8",
         "name": "KlgEinsatzTemperatur",
         "entityConfig": "79db91880beffbbe",
-        "version": 0,
+        "version": 1,
         "state": "payload",
         "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
         "attributes": [],
         "inputOverride": "allow",
         "outputProperties": [],
@@ -2450,9 +4420,11 @@
         "z": "f6f2187d.f17ca8",
         "name": "Kuehlung läuft",
         "entityConfig": "89e0e46dd868eda8",
-        "version": 0,
+        "version": 1,
         "state": "payload[0].bit0",
         "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
         "attributes": [],
         "inputOverride": "allow",
         "outputProperties": [],
@@ -2511,9 +4483,11 @@
         "z": "f6f2187d.f17ca8",
         "name": "DatumUhrzeit",
         "entityConfig": "4eb32a6013505108",
-        "version": 0,
+        "version": 1,
         "state": "payload",
         "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
         "attributes": [],
         "inputOverride": "allow",
         "outputProperties": [],
@@ -2603,9 +4577,11 @@
         "z": "f6f2187d.f17ca8",
         "name": "Temp Verdampfung",
         "entityConfig": "c7f2dff221c0cc99",
-        "version": 0,
+        "version": 1,
         "state": "payload",
         "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
         "attributes": [],
         "inputOverride": "allow",
         "outputProperties": [],
@@ -2621,9 +4597,11 @@
         "z": "f6f2187d.f17ca8",
         "name": "Temp Kondensation",
         "entityConfig": "40921054e6119397",
-        "version": 0,
+        "version": 1,
         "state": "payload",
         "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
         "attributes": [],
         "inputOverride": "allow",
         "outputProperties": [],
@@ -2639,9 +4617,11 @@
         "z": "f6f2187d.f17ca8",
         "name": "Temp Saugleitung",
         "entityConfig": "2acd941050defa26",
-        "version": 0,
+        "version": 1,
         "state": "payload",
         "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
         "attributes": [],
         "inputOverride": "allow",
         "outputProperties": [],
@@ -2657,9 +4637,11 @@
         "z": "f6f2187d.f17ca8",
         "name": "Druck Verdampfer",
         "entityConfig": "1ae1830f27031885",
-        "version": 0,
+        "version": 1,
         "state": "payload",
         "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
         "attributes": [],
         "inputOverride": "allow",
         "outputProperties": [],
@@ -2675,9 +4657,11 @@
         "z": "f6f2187d.f17ca8",
         "name": "Druck Kondensator",
         "entityConfig": "078479642d35bfe3",
-        "version": 0,
+        "version": 1,
         "state": "payload",
         "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
         "attributes": [],
         "inputOverride": "allow",
         "outputProperties": [],
@@ -2746,1177 +4730,675 @@
         ]
     },
     {
-        "id": "4130a6f71c9ed385",
-        "type": "ha-entity-config",
-        "server": "77f235a2.d6e4c4",
-        "deviceConfig": "",
-        "name": "Heizung Temperatur Aussen",
-        "version": "6",
-        "entityType": "sensor",
-        "haConfig": [
-            {
-                "property": "name",
-                "value": "Waterkotte Heizung Temperatur Aussen"
-            },
-            {
-                "property": "icon",
-                "value": ""
-            },
-            {
-                "property": "entity_picture",
-                "value": ""
-            },
-            {
-                "property": "entity_category",
-                "value": ""
-            },
-            {
-                "property": "device_class",
-                "value": "temperature"
-            },
-            {
-                "property": "unit_of_measurement",
-                "value": "°C"
-            },
-            {
-                "property": "state_class",
-                "value": "measurement"
-            }
-        ],
-        "resend": false,
-        "debugEnabled": false
+        "id": "wk0401fmt0001",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Zeit ein -> HH:MM:SS",
+        "func": "// 3 bytes [ss, mm, hh] -> \"HH:MM:SS\"\nconst b = msg.payload;\nif (!b || b.length < 3) { return null; }\nconst p = v => String(v).padStart(2, '0');\nmsg.payload = `${p(b[2])}:${p(b[1])}:${p(b[0])}`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1620,
+        "y": 1600,
+        "wires": [
+            [
+                "wkWein_rbnull",
+                "wk0401sens0001"
+            ]
+        ]
     },
     {
-        "id": "4f2ff1b78c86806e",
-        "type": "ha-entity-config",
-        "server": "77f235a2.d6e4c4",
-        "deviceConfig": "",
-        "name": "Temperatur Aussen 24h",
-        "version": "6",
-        "entityType": "sensor",
-        "haConfig": [
-            {
-                "property": "name",
-                "value": "Waterkotte Temperatur Aussen 24h"
-            },
-            {
-                "property": "icon",
-                "value": ""
-            },
-            {
-                "property": "entity_picture",
-                "value": ""
-            },
-            {
-                "property": "entity_category",
-                "value": ""
-            },
-            {
-                "property": "device_class",
-                "value": "temperature"
-            },
-            {
-                "property": "unit_of_measurement",
-                "value": "°C"
-            },
-            {
-                "property": "state_class",
-                "value": "measurement"
-            }
-        ],
-        "resend": false,
-        "debugEnabled": false
+        "id": "wk0402fmt0001",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Zeit aus -> HH:MM:SS",
+        "func": "// 3 bytes [ss, mm, hh] -> \"HH:MM:SS\"\nconst b = msg.payload;\nif (!b || b.length < 3) { return null; }\nconst p = v => String(v).padStart(2, '0');\nmsg.payload = `${p(b[2])}:${p(b[1])}:${p(b[0])}`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1620,
+        "y": 1720,
+        "wires": [
+            [
+                "wkWaus_rbnull",
+                "wk0402sens0001"
+            ]
+        ]
     },
     {
-        "id": "8092504d32e09ae4",
-        "type": "ha-entity-config",
-        "server": "77f235a2.d6e4c4",
-        "deviceConfig": "",
-        "name": "Heizung WW Ist",
-        "version": "6",
-        "entityType": "sensor",
-        "haConfig": [
-            {
-                "property": "name",
-                "value": "Waterkotte Heizung WW Ist"
-            },
-            {
-                "property": "icon",
-                "value": ""
-            },
-            {
-                "property": "entity_picture",
-                "value": ""
-            },
-            {
-                "property": "entity_category",
-                "value": ""
-            },
-            {
-                "property": "device_class",
-                "value": "temperature"
-            },
-            {
-                "property": "unit_of_measurement",
-                "value": "°C"
-            },
-            {
-                "property": "state_class",
-                "value": ""
-            }
-        ],
-        "resend": false,
-        "debugEnabled": false
+        "id": "wk0401sens0001",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "WW Zeit ein",
+        "entityConfig": "wk0401cfg0001",
+        "version": 1,
+        "state": "payload",
+        "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1830,
+        "y": 1640,
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "e0af6c7e655ecb0e",
-        "type": "ha-entity-config",
-        "server": "77f235a2.d6e4c4",
-        "deviceConfig": "",
-        "name": "Heizung WQuelle Ein",
-        "version": "6",
-        "entityType": "sensor",
-        "haConfig": [
-            {
-                "property": "name",
-                "value": "Waterkotte Heizung WQuelle Ein"
-            },
-            {
-                "property": "icon",
-                "value": ""
-            },
-            {
-                "property": "entity_picture",
-                "value": ""
-            },
-            {
-                "property": "entity_category",
-                "value": ""
-            },
-            {
-                "property": "device_class",
-                "value": "temperature"
-            },
-            {
-                "property": "unit_of_measurement",
-                "value": "°C"
-            },
-            {
-                "property": "state_class",
-                "value": "measurement"
-            }
-        ],
-        "resend": false,
-        "debugEnabled": false
+        "id": "wk0402sens0001",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "WW Zeit aus",
+        "entityConfig": "wk0402cfg0001",
+        "version": 1,
+        "state": "payload",
+        "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1830,
+        "y": 1760,
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "290b86f94cd4b102",
-        "type": "ha-entity-config",
+        "id": "wkWein_trig",
+        "type": "server-state-changed",
+        "z": "f6f2187d.f17ca8",
+        "name": "WW Zeit ein geaendert",
         "server": "77f235a2.d6e4c4",
-        "deviceConfig": "",
-        "name": "Heizung WQuelle Aus",
-        "version": "6",
-        "entityType": "sensor",
-        "haConfig": [
-            {
-                "property": "name",
-                "value": "Waterkotte Heizung WQuelle Aus"
-            },
-            {
-                "property": "icon",
-                "value": ""
-            },
-            {
-                "property": "entity_picture",
-                "value": ""
-            },
-            {
-                "property": "entity_category",
-                "value": ""
-            },
-            {
-                "property": "device_class",
-                "value": "temperature"
-            },
-            {
-                "property": "unit_of_measurement",
-                "value": "°C"
-            },
-            {
-                "property": "state_class",
-                "value": "measurement"
-            }
-        ],
-        "resend": false,
-        "debugEnabled": false
-    },
-    {
-        "id": "67219fc8d842b0cf",
-        "type": "ha-entity-config",
-        "server": "77f235a2.d6e4c4",
-        "deviceConfig": "",
-        "name": "Heizung Temperatur Vorlauf Ist",
-        "version": "6",
-        "entityType": "sensor",
-        "haConfig": [
-            {
-                "property": "name",
-                "value": "Waterkotte Heizung Temperatur Vorlauf Ist"
-            },
-            {
-                "property": "icon",
-                "value": ""
-            },
-            {
-                "property": "entity_picture",
-                "value": ""
-            },
-            {
-                "property": "entity_category",
-                "value": ""
-            },
-            {
-                "property": "device_class",
-                "value": "temperature"
-            },
-            {
-                "property": "unit_of_measurement",
-                "value": "°C"
-            },
-            {
-                "property": "state_class",
-                "value": ""
-            }
-        ],
-        "resend": false,
-        "debugEnabled": false
-    },
-    {
-        "id": "f97adacb2443c90d",
-        "type": "ha-entity-config",
-        "server": "77f235a2.d6e4c4",
-        "deviceConfig": "",
-        "name": "Heizung Temperatur Rücklauf Ist",
-        "version": "6",
-        "entityType": "sensor",
-        "haConfig": [
-            {
-                "property": "name",
-                "value": "Waterkotte Heizung Temperatur Rücklauf Ist"
-            },
-            {
-                "property": "icon",
-                "value": ""
-            },
-            {
-                "property": "entity_picture",
-                "value": ""
-            },
-            {
-                "property": "entity_category",
-                "value": ""
-            },
-            {
-                "property": "device_class",
-                "value": "temperature"
-            },
-            {
-                "property": "unit_of_measurement",
-                "value": "°C"
-            },
-            {
-                "property": "state_class",
-                "value": ""
-            }
-        ],
-        "resend": false,
-        "debugEnabled": false
-    },
-    {
-        "id": "100d4d2e806eb6e7",
-        "type": "ha-entity-config",
-        "server": "77f235a2.d6e4c4",
-        "deviceConfig": "",
-        "name": "Heizung Temperatur Rücklauf Soll",
-        "version": "6",
-        "entityType": "sensor",
-        "haConfig": [
-            {
-                "property": "name",
-                "value": "Waterkotte Heizung Temperatur Rücklauf Soll"
-            },
-            {
-                "property": "icon",
-                "value": ""
-            },
-            {
-                "property": "entity_picture",
-                "value": ""
-            },
-            {
-                "property": "entity_category",
-                "value": ""
-            },
-            {
-                "property": "device_class",
-                "value": "temperature"
-            },
-            {
-                "property": "unit_of_measurement",
-                "value": "°C"
-            },
-            {
-                "property": "state_class",
-                "value": ""
-            }
-        ],
-        "resend": false,
-        "debugEnabled": false
-    },
-    {
-        "id": "6bf7dc1e8e9570ef",
-        "type": "ha-entity-config",
-        "server": "77f235a2.d6e4c4",
-        "deviceConfig": "",
-        "name": "Betriebsstunden Kompressor",
-        "version": "6",
-        "entityType": "sensor",
-        "haConfig": [
-            {
-                "property": "name",
-                "value": "Waterkotte Betriebsstunden Kompressor"
-            },
-            {
-                "property": "icon",
-                "value": ""
-            },
-            {
-                "property": "entity_picture",
-                "value": ""
-            },
-            {
-                "property": "entity_category",
-                "value": ""
-            },
-            {
-                "property": "device_class",
-                "value": "duration"
-            },
-            {
-                "property": "unit_of_measurement",
-                "value": "h"
-            },
-            {
-                "property": "state_class",
-                "value": "total_increasing"
-            }
-        ],
-        "resend": false,
-        "debugEnabled": false
-    },
-    {
-        "id": "05f0ccaa4fc0536c",
-        "type": "ha-entity-config",
-        "server": "77f235a2.d6e4c4",
-        "deviceConfig": "",
-        "name": "Heizung Betriebsstunden Warmwasser",
-        "version": "6",
-        "entityType": "sensor",
-        "haConfig": [
-            {
-                "property": "name",
-                "value": "Waterkotte Heizung Betriebsstunden Warmwasser"
-            },
-            {
-                "property": "icon",
-                "value": ""
-            },
-            {
-                "property": "entity_picture",
-                "value": ""
-            },
-            {
-                "property": "entity_category",
-                "value": ""
-            },
-            {
-                "property": "device_class",
-                "value": "duration"
-            },
-            {
-                "property": "unit_of_measurement",
-                "value": "h"
-            },
-            {
-                "property": "state_class",
-                "value": "total_increasing"
-            }
-        ],
-        "resend": false,
-        "debugEnabled": false
-    },
-    {
-        "id": "dac7547e92f59e73",
-        "type": "ha-entity-config",
-        "server": "77f235a2.d6e4c4",
-        "deviceConfig": "",
-        "name": "Heizung Betriebsstunden Kompressor",
-        "version": "6",
-        "entityType": "sensor",
-        "haConfig": [
-            {
-                "property": "name",
-                "value": "Waterkotte Heizung Betriebsstunden Kompressor"
-            },
-            {
-                "property": "icon",
-                "value": ""
-            },
-            {
-                "property": "entity_picture",
-                "value": ""
-            },
-            {
-                "property": "entity_category",
-                "value": ""
-            },
-            {
-                "property": "device_class",
-                "value": "duration"
-            },
-            {
-                "property": "unit_of_measurement",
-                "value": "h"
-            },
-            {
-                "property": "state_class",
-                "value": "total_increasing"
-            }
-        ],
-        "resend": false,
-        "debugEnabled": false
-    },
-    {
-        "id": "90d12860632310f7",
-        "type": "ha-entity-config",
-        "server": "77f235a2.d6e4c4",
-        "deviceConfig": "",
-        "name": "WW läuft",
-        "version": "6",
-        "entityType": "binary_sensor",
-        "haConfig": [
-            {
-                "property": "name",
-                "value": "Waterkotte WW läuft"
-            },
-            {
-                "property": "icon",
-                "value": ""
-            },
-            {
-                "property": "entity_picture",
-                "value": ""
-            },
-            {
-                "property": "entity_category",
-                "value": ""
-            },
-            {
-                "property": "device_class",
-                "value": "heat"
-            }
-        ],
-        "resend": false,
-        "debugEnabled": false
-    },
-    {
-        "id": "08d57f5254b27c52",
-        "type": "ha-entity-config",
-        "server": "77f235a2.d6e4c4",
-        "deviceConfig": "",
-        "name": "Heizung läuft",
-        "version": "6",
-        "entityType": "binary_sensor",
-        "haConfig": [
-            {
-                "property": "name",
-                "value": "Waterkotte Heizung läuft"
-            },
-            {
-                "property": "icon",
-                "value": ""
-            },
-            {
-                "property": "entity_picture",
-                "value": ""
-            },
-            {
-                "property": "entity_category",
-                "value": ""
-            },
-            {
-                "property": "device_class",
-                "value": "heat"
-            }
-        ],
-        "resend": false,
-        "debugEnabled": false
-    },
-    {
-        "id": "658233d2df8ca1a5",
-        "type": "ha-entity-config",
-        "server": "77f235a2.d6e4c4",
-        "deviceConfig": "",
-        "name": "Betriebsstunden Stufe 2",
         "version": 6,
-        "entityType": "sensor",
-        "haConfig": [
+        "outputs": 1,
+        "exposeAsEntityConfig": "",
+        "entities": {
+            "entity": [
+                "input_datetime.ww_zeit_ein"
+            ],
+            "substring": [],
+            "regex": []
+        },
+        "outputInitially": false,
+        "stateType": "str",
+        "ifState": "",
+        "ifStateType": "str",
+        "ifStateOperator": "is",
+        "outputOnlyOnStateChange": true,
+        "for": "10",
+        "forType": "num",
+        "forUnits": "seconds",
+        "ignorePrevStateNull": true,
+        "ignorePrevStateUnknown": true,
+        "ignorePrevStateUnavailable": true,
+        "ignoreCurrentStateUnknown": true,
+        "ignoreCurrentStateUnavailable": true,
+        "outputProperties": [
             {
-                "property": "name",
-                "value": "Waterkotte Betriebsstunden Stufe 2"
-            },
-            {
-                "property": "icon",
-                "value": ""
-            },
-            {
-                "property": "entity_picture",
-                "value": ""
-            },
-            {
-                "property": "entity_category",
-                "value": ""
-            },
-            {
-                "property": "device_class",
-                "value": "duration"
-            },
-            {
-                "property": "unit_of_measurement",
-                "value": "h"
-            },
-            {
-                "property": "state_class",
-                "value": "total_increasing"
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "string",
+                "valueType": "entityState"
             }
         ],
-        "resend": false,
-        "debugEnabled": false
+        "x": 120,
+        "y": 1860,
+        "wires": [
+            [
+                "wkWein_build"
+            ]
+        ]
     },
     {
-        "id": "77f235a2.d6e4c4",
-        "type": "server",
-        "name": "Home Assistant Local",
-        "version": 5,
-        "addon": false,
-        "rejectUnauthorizedCerts": true,
-        "ha_boolean": "y|yes|true|on|home|open",
-        "connectionDelay": true,
-        "cacheJson": true,
-        "heartbeat": false,
-        "heartbeatInterval": "30",
-        "areaSelector": "friendlyName",
-        "deviceSelector": "friendlyName",
-        "entitySelector": "friendlyName",
-        "statusSeparator": "at: ",
-        "statusYear": "hidden",
-        "statusMonth": "short",
-        "statusDay": "numeric",
-        "statusHourCycle": "h23",
-        "statusTimeFormat": "h:m",
-        "enableGlobalContextStore": true
+        "id": "wkWein_build",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "WW Zeit ein -> Befehl (0x0135)",
+        "func": "// Build a Resumat CD4 write frame for a 3-byte time value.\n// Frame: 10 02 01 13 <addrHi> <addrLo> <ss mm hh> 10 03 <crcHi crcLo>\n// CRC-16/BUYPASS over the LOGICAL payload slice(2, end-before-1003) (unstuffed).\n// 0x10 bytes in the value are byte-stuffed (doubled) for the wire only.\nconst ADDR_HI = 0x01, ADDR_LO = 0x35; // 04.01 Zeit ein\n\nfunction crc16Bypass(data){ let crc=0x0000; const poly=0x8005; for(let i=0;i<data.length;i++){ crc^=(data[i]<<8); for(let j=0;j<8;j++){ crc=(crc&0x8000)?((crc<<1)^poly):(crc<<1);} } return crc & 0xFFFF; }\n\nfunction parseTime(v){\n  // accepts 'HH:MM:SS' or 'HH:MM'\n  const m = String(v).trim().match(/^(\\d{1,2}):(\\d{2})(?::(\\d{2}))?$/);\n  if(!m) return null;\n  const hh=+m[1], mm=+m[2], ss=m[3]?+m[3]:0;\n  if(hh>23||mm>59||ss>59) return null;\n  return [ss,mm,hh];\n}\n\nconst t = parseTime(msg.payload);\nif(!t){ node.warn('WW Zeit ein: bad time '+msg.payload); return null; }\nconst [ss,mm,hh] = t;\n\n// logical payload for CRC (unstuffed)\nconst logical = [0x01,0x13,ADDR_HI,ADDR_LO,ss,mm,hh];\nconst crc = crc16Bypass(logical);\n\n// wire bytes with 0x10 stuffing of the value bytes\nlet val=[];\nfor(const b of [ss,mm,hh]){ val.push(b); if(b===0x10) val.push(0x10); }\nconst frame = Buffer.from([0x10,0x02,0x01,0x13,ADDR_HI,ADDR_LO, ...val, 0x10,0x03, (crc>>8)&0xFF, crc&0xFF]);\n\nnode.status({text: frame.toString('hex')});\nmsg.payload = frame;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 1860,
+        "wires": [
+            [
+                "2b1adca662ad8c43"
+            ]
+        ]
     },
     {
-        "id": "a3391cda5ddbcbea",
-        "type": "ha-entity-config",
+        "id": "wkWein_stamp",
+        "type": "server-state-changed",
+        "z": "f6f2187d.f17ca8",
+        "name": "Set global var WW Zeit ein changed",
         "server": "77f235a2.d6e4c4",
-        "deviceConfig": "",
-        "name": "HeizungAbschaltung",
         "version": 6,
-        "entityType": "binary_sensor",
-        "haConfig": [
+        "outputs": 1,
+        "exposeAsEntityConfig": "",
+        "entities": {
+            "entity": [
+                "input_datetime.ww_zeit_ein"
+            ],
+            "substring": [],
+            "regex": []
+        },
+        "outputInitially": false,
+        "stateType": "str",
+        "ifState": "",
+        "ifStateType": "str",
+        "ifStateOperator": "is",
+        "outputOnlyOnStateChange": true,
+        "for": "1",
+        "forType": "num",
+        "forUnits": "seconds",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
             {
-                "property": "name",
-                "value": "Waterkotte HeizungAbschaltung"
-            },
-            {
-                "property": "icon",
-                "value": ""
-            },
-            {
-                "property": "entity_picture",
-                "value": ""
-            },
-            {
-                "property": "entity_category",
-                "value": ""
-            },
-            {
-                "property": "device_class",
-                "value": ""
+                "property": "ww_zeit_ein_last_timestamp",
+                "propertyType": "global",
+                "value": "",
+                "valueType": "date"
             }
         ],
-        "resend": false,
-        "debugEnabled": false
+        "x": 160,
+        "y": 1920,
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "f78f5049d8579dd8",
-        "type": "ha-entity-config",
-        "server": "77f235a2.d6e4c4",
-        "deviceConfig": "",
-        "name": "WWAbschaltung",
-        "version": "6",
-        "entityType": "binary_sensor",
-        "haConfig": [
+        "id": "wkWein_rbnull",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "WW Zeit ein ts set?",
+        "property": "ww_zeit_ein_last_timestamp",
+        "propertyType": "global",
+        "rules": [
             {
-                "property": "name",
-                "value": "Waterkotte WWAbschaltung"
+                "t": "nnull"
             },
             {
-                "property": "icon",
-                "value": ""
-            },
-            {
-                "property": "entity_picture",
-                "value": ""
-            },
-            {
-                "property": "entity_category",
-                "value": ""
-            },
-            {
-                "property": "device_class",
-                "value": ""
+                "t": "null"
             }
         ],
-        "resend": false,
-        "debugEnabled": false
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1850,
+        "y": 1600,
+        "wires": [
+            [
+                "wkWein_rb15s"
+            ],
+            [
+                "wkWein_rbset"
+            ]
+        ]
     },
     {
-        "id": "b0d499086969e38a",
-        "type": "ha-entity-config",
+        "id": "wkWein_rb15s",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "Last WW Zeit ein NOT set within 15s",
+        "property": "ww_zeit_ein_last_timestamp",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "$moment().subtract(15, 'seconds')",
+                "vt": "jsonata"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 2130,
+        "y": 1540,
+        "wires": [
+            [
+                "wkWein_rbset"
+            ]
+        ]
+    },
+    {
+        "id": "wkWein_rbset",
+        "type": "api-call-service",
+        "z": "f6f2187d.f17ca8",
+        "name": "WW Zeit ein Set",
         "server": "77f235a2.d6e4c4",
-        "deviceConfig": "",
-        "name": "HeizungSollTemperatur",
+        "version": 7,
+        "debugenabled": false,
+        "action": "input_datetime.set_datetime",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_datetime.ww_zeit_ein"
+        ],
+        "labelId": [],
+        "data": "{\"time\": msg.payload}",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "input_datetime",
+        "service": "set_datetime",
+        "x": 2400,
+        "y": 1600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "wkWaus_trig",
+        "type": "server-state-changed",
+        "z": "f6f2187d.f17ca8",
+        "name": "WW Zeit aus geaendert",
+        "server": "77f235a2.d6e4c4",
         "version": 6,
-        "entityType": "sensor",
-        "haConfig": [
+        "outputs": 1,
+        "exposeAsEntityConfig": "",
+        "entities": {
+            "entity": [
+                "input_datetime.ww_zeit_aus"
+            ],
+            "substring": [],
+            "regex": []
+        },
+        "outputInitially": false,
+        "stateType": "str",
+        "ifState": "",
+        "ifStateType": "str",
+        "ifStateOperator": "is",
+        "outputOnlyOnStateChange": true,
+        "for": "10",
+        "forType": "num",
+        "forUnits": "seconds",
+        "ignorePrevStateNull": true,
+        "ignorePrevStateUnknown": true,
+        "ignorePrevStateUnavailable": true,
+        "ignoreCurrentStateUnknown": true,
+        "ignoreCurrentStateUnavailable": true,
+        "outputProperties": [
             {
-                "property": "name",
-                "value": "Waterkotte HeizungSollTemperatur"
-            },
-            {
-                "property": "icon",
-                "value": ""
-            },
-            {
-                "property": "entity_picture",
-                "value": ""
-            },
-            {
-                "property": "entity_category",
-                "value": ""
-            },
-            {
-                "property": "device_class",
-                "value": "temperature"
-            },
-            {
-                "property": "unit_of_measurement",
-                "value": "°C"
-            },
-            {
-                "property": "state_class",
-                "value": ""
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "string",
+                "valueType": "entityState"
             }
         ],
-        "resend": false,
-        "debugEnabled": false
+        "x": 120,
+        "y": 1700,
+        "wires": [
+            [
+                "wkWaus_build"
+            ]
+        ]
     },
     {
-        "id": "6b6b5ec45d6fcaab",
-        "type": "ha-entity-config",
+        "id": "wkWaus_build",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "WW Zeit aus -> Befehl (0x0138)",
+        "func": "const ADDR_HI = 0x01, ADDR_LO = 0x38; // 04.02 Zeit aus\n\nfunction crc16Bypass(data){ let crc=0x0000; const poly=0x8005; for(let i=0;i<data.length;i++){ crc^=(data[i]<<8); for(let j=0;j<8;j++){ crc=(crc&0x8000)?((crc<<1)^poly):(crc<<1);} } return crc & 0xFFFF; }\n\nfunction parseTime(v){\n  const m = String(v).trim().match(/^(\\d{1,2}):(\\d{2})(?::(\\d{2}))?$/);\n  if(!m) return null;\n  const hh=+m[1], mm=+m[2], ss=m[3]?+m[3]:0;\n  if(hh>23||mm>59||ss>59) return null;\n  return [ss,mm,hh];\n}\n\nconst t = parseTime(msg.payload);\nif(!t){ node.warn('WW Zeit aus: bad time '+msg.payload); return null; }\nconst [ss,mm,hh] = t;\n\nconst logical = [0x01,0x13,ADDR_HI,ADDR_LO,ss,mm,hh];\nconst crc = crc16Bypass(logical);\n\nlet val=[];\nfor(const b of [ss,mm,hh]){ val.push(b); if(b===0x10) val.push(0x10); }\nconst frame = Buffer.from([0x10,0x02,0x01,0x13,ADDR_HI,ADDR_LO, ...val, 0x10,0x03, (crc>>8)&0xFF, crc&0xFF]);\n\nnode.status({text: frame.toString('hex')});\nmsg.payload = frame;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 1700,
+        "wires": [
+            [
+                "2b1adca662ad8c43"
+            ]
+        ]
+    },
+    {
+        "id": "wkWaus_stamp",
+        "type": "server-state-changed",
+        "z": "f6f2187d.f17ca8",
+        "name": "Set global var WW Zeit aus changed",
         "server": "77f235a2.d6e4c4",
-        "deviceConfig": "",
-        "name": "HeizungEinsatzTemp",
         "version": 6,
-        "entityType": "sensor",
-        "haConfig": [
+        "outputs": 1,
+        "exposeAsEntityConfig": "",
+        "entities": {
+            "entity": [
+                "input_datetime.ww_zeit_aus"
+            ],
+            "substring": [],
+            "regex": []
+        },
+        "outputInitially": false,
+        "stateType": "str",
+        "ifState": "",
+        "ifStateType": "str",
+        "ifStateOperator": "is",
+        "outputOnlyOnStateChange": true,
+        "for": "1",
+        "forType": "num",
+        "forUnits": "seconds",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
             {
-                "property": "name",
-                "value": "Waterkotte HeizungEinsatzTemp"
-            },
-            {
-                "property": "icon",
-                "value": ""
-            },
-            {
-                "property": "entity_picture",
-                "value": ""
-            },
-            {
-                "property": "entity_category",
-                "value": ""
-            },
-            {
-                "property": "device_class",
-                "value": "temperature"
-            },
-            {
-                "property": "unit_of_measurement",
-                "value": "°C"
-            },
-            {
-                "property": "state_class",
-                "value": ""
+                "property": "ww_zeit_aus_last_timestamp",
+                "propertyType": "global",
+                "value": "",
+                "valueType": "date"
             }
         ],
-        "resend": false,
-        "debugEnabled": false
+        "x": 160,
+        "y": 1760,
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "298d196fdd0630ec",
-        "type": "ha-entity-config",
+        "id": "wkWaus_rbnull",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "WW Zeit aus ts set?",
+        "property": "ww_zeit_aus_last_timestamp",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "nnull"
+            },
+            {
+                "t": "null"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1860,
+        "y": 1720,
+        "wires": [
+            [
+                "wkWaus_rb15s"
+            ],
+            [
+                "wkWaus_rbset"
+            ]
+        ]
+    },
+    {
+        "id": "wkWaus_rb15s",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "Last WW Zeit aus NOT set within 15s",
+        "property": "ww_zeit_aus_last_timestamp",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "$moment().subtract(15, 'seconds')",
+                "vt": "jsonata"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 2130,
+        "y": 1660,
+        "wires": [
+            [
+                "wkWaus_rbset"
+            ]
+        ]
+    },
+    {
+        "id": "wkWaus_rbset",
+        "type": "api-call-service",
+        "z": "f6f2187d.f17ca8",
+        "name": "WW Zeit aus Set",
         "server": "77f235a2.d6e4c4",
-        "deviceConfig": "",
-        "name": "WarmwasserSoll",
-        "version": "6",
-        "entityType": "sensor",
-        "haConfig": [
-            {
-                "property": "name",
-                "value": "Waterkotte WarmwasserSoll"
-            },
-            {
-                "property": "icon",
-                "value": ""
-            },
-            {
-                "property": "entity_picture",
-                "value": ""
-            },
-            {
-                "property": "entity_category",
-                "value": ""
-            },
-            {
-                "property": "device_class",
-                "value": "temperature"
-            },
-            {
-                "property": "unit_of_measurement",
-                "value": "°C"
-            },
-            {
-                "property": "state_class",
-                "value": ""
-            }
+        "version": 7,
+        "debugenabled": false,
+        "action": "input_datetime.set_datetime",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_datetime.ww_zeit_aus"
         ],
-        "resend": false,
-        "debugEnabled": false
+        "labelId": [],
+        "data": "{\"time\": msg.payload}",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "input_datetime",
+        "service": "set_datetime",
+        "x": 2410,
+        "y": 1720,
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "12dc906c6496795b",
-        "type": "ha-entity-config",
-        "server": "77f235a2.d6e4c4",
-        "deviceConfig": "",
-        "name": "KlgAbschaltung",
-        "version": "6",
-        "entityType": "binary_sensor",
-        "haConfig": [
-            {
-                "property": "name",
-                "value": "Waterkotte KlgAbschaltung"
-            },
-            {
-                "property": "icon",
-                "value": ""
-            },
-            {
-                "property": "entity_picture",
-                "value": ""
-            },
-            {
-                "property": "entity_category",
-                "value": ""
-            },
-            {
-                "property": "device_class",
-                "value": ""
-            }
-        ],
-        "resend": false,
-        "debugEnabled": false
+        "id": "wkBZ_sens",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "Betriebszustaende Byte",
+        "entityConfig": "wkBZ_cfg",
+        "version": 1,
+        "state": "payload",
+        "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1650,
+        "y": 2040,
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "00470c391472195a",
-        "type": "ha-entity-config",
-        "server": "77f235a2.d6e4c4",
-        "deviceConfig": "",
-        "name": "KlgSollTemperatur",
-        "version": 6,
-        "entityType": "sensor",
-        "haConfig": [
-            {
-                "property": "name",
-                "value": "Waterkotte KlgSollTemperatur"
-            },
-            {
-                "property": "icon",
-                "value": ""
-            },
-            {
-                "property": "entity_picture",
-                "value": ""
-            },
-            {
-                "property": "entity_category",
-                "value": ""
-            },
-            {
-                "property": "device_class",
-                "value": "temperature"
-            },
-            {
-                "property": "unit_of_measurement",
-                "value": "°C"
-            },
-            {
-                "property": "state_class",
-                "value": ""
-            }
-        ],
-        "resend": false,
-        "debugEnabled": false
+        "id": "wkDO_sens",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "DO-Buffer Byte",
+        "entityConfig": "wkDO_cfg",
+        "version": 1,
+        "state": "payload",
+        "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1620,
+        "y": 2100,
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "79db91880beffbbe",
-        "type": "ha-entity-config",
-        "server": "77f235a2.d6e4c4",
-        "deviceConfig": "",
-        "name": "KlgEinsatzTemperatur",
-        "version": 6,
-        "entityType": "sensor",
-        "haConfig": [
-            {
-                "property": "name",
-                "value": "Waterkotte KlgEinsatzTemperatur"
-            },
-            {
-                "property": "icon",
-                "value": ""
-            },
-            {
-                "property": "entity_picture",
-                "value": ""
-            },
-            {
-                "property": "entity_category",
-                "value": ""
-            },
-            {
-                "property": "device_class",
-                "value": "temperature"
-            },
-            {
-                "property": "unit_of_measurement",
-                "value": "°C"
-            },
-            {
-                "property": "state_class",
-                "value": ""
-            }
-        ],
-        "resend": false,
-        "debugEnabled": false
+        "id": "wkDI_sens",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "DI-Buffer Byte",
+        "entityConfig": "wkDI_cfg",
+        "version": 1,
+        "state": "payload",
+        "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1620,
+        "y": 2160,
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "89e0e46dd868eda8",
-        "type": "ha-entity-config",
-        "server": "77f235a2.d6e4c4",
-        "deviceConfig": "",
-        "name": "Kuehlung läuft",
-        "version": 6,
-        "entityType": "binary_sensor",
-        "haConfig": [
-            {
-                "property": "name",
-                "value": "Waterkotte Kuehlung läuft"
-            },
-            {
-                "property": "icon",
-                "value": ""
-            },
-            {
-                "property": "entity_picture",
-                "value": ""
-            },
-            {
-                "property": "entity_category",
-                "value": ""
-            },
-            {
-                "property": "device_class",
-                "value": "cold"
-            }
-        ],
-        "resend": false,
-        "debugEnabled": false
+        "id": "wkUB_sens",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "Unterbrechungen Byte",
+        "entityConfig": "wkUB_cfg",
+        "version": 1,
+        "state": "payload",
+        "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1640,
+        "y": 2220,
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "4eb32a6013505108",
-        "type": "ha-entity-config",
-        "server": "77f235a2.d6e4c4",
-        "deviceConfig": "",
-        "name": "DatumUhrzeit",
-        "version": 6,
-        "entityType": "sensor",
-        "haConfig": [
-            {
-                "property": "name",
-                "value": "Waterkotte DatumUhrzeit"
-            },
-            {
-                "property": "icon",
-                "value": ""
-            },
-            {
-                "property": "entity_picture",
-                "value": ""
-            },
-            {
-                "property": "entity_category",
-                "value": ""
-            },
-            {
-                "property": "device_class",
-                "value": "timestamp"
-            },
-            {
-                "property": "unit_of_measurement",
-                "value": ""
-            },
-            {
-                "property": "state_class",
-                "value": ""
-            }
-        ],
-        "resend": false,
-        "debugEnabled": false
+        "id": "wkWE_sens",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "Warnung-Eingang Byte",
+        "entityConfig": "wkWE_cfg",
+        "version": 1,
+        "state": "payload",
+        "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1650,
+        "y": 2280,
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "c7f2dff221c0cc99",
-        "type": "ha-entity-config",
-        "server": "77f235a2.d6e4c4",
-        "deviceConfig": "",
-        "name": "Temp Verdampfung",
-        "version": 6,
-        "entityType": "sensor",
-        "haConfig": [
-            {
-                "property": "name",
-                "value": "Waterkotte Temp Verdampfung"
-            },
-            {
-                "property": "icon",
-                "value": ""
-            },
-            {
-                "property": "entity_picture",
-                "value": ""
-            },
-            {
-                "property": "entity_category",
-                "value": ""
-            },
-            {
-                "property": "device_class",
-                "value": "temperature"
-            },
-            {
-                "property": "unit_of_measurement",
-                "value": "°C"
-            },
-            {
-                "property": "state_class",
-                "value": "measurement"
-            }
-        ],
-        "resend": false,
-        "debugEnabled": false
+        "id": "wkWA_sens",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "Warnung-Ausgang Byte",
+        "entityConfig": "wkWA_cfg",
+        "version": 1,
+        "state": "payload",
+        "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1650,
+        "y": 2340,
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "40921054e6119397",
-        "type": "ha-entity-config",
-        "server": "77f235a2.d6e4c4",
-        "deviceConfig": "",
-        "name": "Temp Kondensation",
-        "version": 6,
-        "entityType": "sensor",
-        "haConfig": [
-            {
-                "property": "name",
-                "value": "Waterkotte Temp Kondensation"
-            },
-            {
-                "property": "icon",
-                "value": ""
-            },
-            {
-                "property": "entity_picture",
-                "value": ""
-            },
-            {
-                "property": "entity_category",
-                "value": ""
-            },
-            {
-                "property": "device_class",
-                "value": "temperature"
-            },
-            {
-                "property": "unit_of_measurement",
-                "value": "°C"
-            },
-            {
-                "property": "state_class",
-                "value": "measurement"
-            }
-        ],
-        "resend": false,
-        "debugEnabled": false
+        "id": "wkWS_sens",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "Warnung-Sonstige Byte",
+        "entityConfig": "wkWS_cfg",
+        "version": 1,
+        "state": "payload",
+        "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1650,
+        "y": 2400,
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "2acd941050defa26",
-        "type": "ha-entity-config",
-        "server": "77f235a2.d6e4c4",
-        "deviceConfig": "",
-        "name": "Temp Saugleitung",
-        "version": 6,
-        "entityType": "sensor",
-        "haConfig": [
-            {
-                "property": "name",
-                "value": "Waterkotte Temp Saugleitung"
-            },
-            {
-                "property": "icon",
-                "value": ""
-            },
-            {
-                "property": "entity_picture",
-                "value": ""
-            },
-            {
-                "property": "entity_category",
-                "value": ""
-            },
-            {
-                "property": "device_class",
-                "value": "temperature"
-            },
-            {
-                "property": "unit_of_measurement",
-                "value": "°C"
-            },
-            {
-                "property": "state_class",
-                "value": "measurement"
-            }
-        ],
-        "resend": false,
-        "debugEnabled": false
+        "id": "wkAF_sens",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "Ausfall Byte",
+        "entityConfig": "wkAF_cfg",
+        "version": 1,
+        "state": "payload",
+        "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1610,
+        "y": 2460,
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "1ae1830f27031885",
-        "type": "ha-entity-config",
-        "server": "77f235a2.d6e4c4",
-        "deviceConfig": "",
-        "name": "Druck Verdampfer",
-        "version": 6,
-        "entityType": "sensor",
-        "haConfig": [
-            {
-                "property": "name",
-                "value": "Waterkotte Druck Verdampfer"
-            },
-            {
-                "property": "icon",
-                "value": ""
-            },
-            {
-                "property": "entity_picture",
-                "value": ""
-            },
-            {
-                "property": "entity_category",
-                "value": ""
-            },
-            {
-                "property": "device_class",
-                "value": "pressure"
-            },
-            {
-                "property": "unit_of_measurement",
-                "value": "bar"
-            },
-            {
-                "property": "state_class",
-                "value": "measurement"
-            }
-        ],
-        "resend": false,
-        "debugEnabled": false
+        "id": "wkHK_sens",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "DO-Handkanal Byte",
+        "entityConfig": "wkHK_cfg",
+        "version": 1,
+        "state": "payload",
+        "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1640,
+        "y": 1860,
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "078479642d35bfe3",
-        "type": "ha-entity-config",
-        "server": "77f235a2.d6e4c4",
-        "deviceConfig": "",
-        "name": "Druck Kondensator",
-        "version": 6,
-        "entityType": "sensor",
-        "haConfig": [
-            {
-                "property": "name",
-                "value": "Waterkotte Druck Kondensator"
-            },
-            {
-                "property": "icon",
-                "value": ""
-            },
-            {
-                "property": "entity_picture",
-                "value": ""
-            },
-            {
-                "property": "entity_category",
-                "value": ""
-            },
-            {
-                "property": "device_class",
-                "value": "pressure"
-            },
-            {
-                "property": "unit_of_measurement",
-                "value": "bar"
-            },
-            {
-                "property": "state_class",
-                "value": "measurement"
-            }
-        ],
-        "resend": false,
-        "debugEnabled": false
-    },
-    {
-        "id": "7c712c459270889a",
-        "type": "global-config",
-        "env": [],
-        "modules": {
-            "node-red-contrib-buffer-parser": "3.2.2",
-            "node-red-contrib-home-assistant-websocket": "0.78.2",
-            "node-red-node-serialport": "2.0.3"
-        }
+        "id": "wkHKE_sens",
+        "type": "ha-sensor",
+        "z": "f6f2187d.f17ca8",
+        "name": "DO-Handkanal-Ein Byte",
+        "entityConfig": "wkHKE_cfg",
+        "version": 1,
+        "state": "payload",
+        "stateType": "msg",
+        "available": "true",
+        "availableType": "bool",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1650,
+        "y": 1920,
+        "wires": [
+            []
+        ]
     }
 ]

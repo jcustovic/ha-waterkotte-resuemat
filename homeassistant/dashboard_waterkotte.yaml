@@ -1,0 +1,347 @@
+title: Waterkotte Wärmepumpe
+views:
+- title: Übersicht
+  path: overview
+  type: sections
+  sections:
+  - type: grid
+    title: Status & Steuerung
+    cards:
+    - type: entities
+      title: Steuerung
+      entities:
+      - entity: input_boolean.heizungonoff
+        name: Heizung Ein/Aus
+      - entity: input_boolean.warmwasseronoff
+        name: Warmwasser Ein/Aus
+      - entity: input_boolean.kuehlung_on_off
+        name: Kühlung Ein/Aus
+      - entity: input_number.kuehlung_temp
+        name: Kühlung Solltemperatur
+      - entity: input_number.heizung_temp
+        name: Heizung Solltemperatur
+      - entity: sensor.nodered_6b6b5ec45d6fcaab
+        name: Heizung Einsatztemp
+      - entity: sensor.nodered_79db91880beffbbe
+        name: Kühlung Einsatztemp
+      - entity: sensor.datumuhrzeit
+        name: Uhrzeit Wärmepumpe
+        icon: mdi:clock-outline
+  - type: grid
+    title: Betriebsstatus
+    cards:
+    - type: entities
+      title: Betriebsstatus
+      entities:
+      - entity: binary_sensor.heizung_lauft_2
+        name: Heizung läuft
+      - entity: binary_sensor.ww_lauft_2
+        name: Warmwasser läuft
+      - entity: binary_sensor.kuehlung_lauft
+        name: Kühlung läuft
+      - entity: binary_sensor.heizungabschaltung
+        name: Abschaltung
+      - entity: binary_sensor.klgabschaltung
+        name: Kühlung Abschaltung
+      - entity: binary_sensor.wwabschaltung
+        name: WW Abschaltung
+      - entity: sensor.waterkotte_ww_zeit_ein
+        name: WW Zeit ein
+        icon: mdi:clock-start
+      - entity: sensor.waterkotte_ww_zeit_aus
+        name: WW Zeit aus
+        icon: mdi:clock-end
+      - entity: sensor.waterkotte_total_power
+        name: Gesamtleistung
+      - entity: sensor.waterkotte_heating_power
+        name: Heizleistung
+      - entity: sensor.waterkotte_warmwasser_power
+        name: WW-Leistung
+  - type: grid
+    title: Temperaturen
+    cards:
+    - type: entities
+      title: Heizkreis
+      entities:
+      - entity: sensor.heizung_temperatur_aussen_2
+        name: Außen
+      - entity: sensor.heizung_temperatur_aussen_24h_2
+        name: Außen 24h
+      - entity: sensor.heizung_temperatur_vorlauf_ist_2
+        name: Vorlauf Ist
+      - entity: sensor.heizung_temperatur_rucklauf_ist_2
+        name: Rücklauf Ist
+      - entity: sensor.heizung_temperatur_rucklauf_soll_2
+        name: Rücklauf Soll
+    - type: entities
+      title: Warmwasser & Quelle
+      entities:
+      - entity: sensor.heizung_ww_ist_2
+        name: WW Ist
+      - entity: sensor.heizungsolltemperatur_2
+        name: WW Soll
+      - entity: sensor.heizung_wquelle_ein_2
+        name: Quelle Ein
+      - entity: sensor.heizung_temperatur_wquelle_aus_2
+        name: Quelle Aus
+  - type: grid
+    title: Temperaturverlauf
+    cards:
+    - type: history-graph
+      title: Heizkreis
+      hours_to_show: 24
+      entities:
+      - entity: sensor.heizung_temperatur_vorlauf_ist_2
+        name: Vorlauf
+      - entity: sensor.heizung_temperatur_rucklauf_ist_2
+        name: Rücklauf Ist
+      - entity: sensor.heizung_temperatur_rucklauf_soll_2
+        name: Rücklauf Soll
+      - entity: sensor.heizung_temperatur_aussen_2
+        name: Außen
+    - type: history-graph
+      title: Wärmequelle
+      hours_to_show: 24
+      entities:
+      - entity: sensor.heizung_wquelle_ein_2
+        name: Quelle Ein
+      - entity: sensor.heizung_temperatur_wquelle_aus_2
+        name: Quelle Aus
+    - type: history-graph
+      title: Kältekreis
+      hours_to_show: 24
+      entities:
+      - entity: sensor.waterkotte_temp_verdampfung
+        name: Verdampfung
+      - entity: sensor.waterkotte_temp_kondensation
+        name: Kondensation
+      - entity: sensor.waterkotte_temp_saugleitung
+        name: Saugleitung
+  - type: grid
+    title: Energie
+    cards:
+    - type: statistics-graph
+      title: Energie monatlich (kWh)
+      period: month
+      stat_types:
+      - change
+      entities:
+      - entity: sensor.waterkotte_total_energy
+        name: Gesamt
+      - entity: sensor.waterkotte_heating_energy
+        name: Heizung
+      - entity: sensor.waterkotte_warmwasser_energy
+        name: Warmwasser
+      chart_type: bar
+    - type: statistics-graph
+      title: Energie jährlich (kWh)
+      period: year
+      stat_types:
+      - change
+      entities:
+      - entity: sensor.waterkotte_total_energy
+        name: Gesamt
+      - entity: sensor.waterkotte_heating_energy
+        name: Heizung
+      - entity: sensor.waterkotte_warmwasser_energy
+        name: Warmwasser
+      chart_type: bar
+    - type: history-graph
+      title: Leistung (24h)
+      hours_to_show: 24
+      entities:
+      - entity: sensor.waterkotte_total_power
+        name: Gesamt
+      - entity: sensor.waterkotte_heating_power
+        name: Heizung
+      - entity: sensor.waterkotte_warmwasser_power
+        name: Warmwasser
+  - type: grid
+    title: Kältekreis (Diagnose)
+    cards:
+    - type: entities
+      title: Drücke & Temperaturen
+      entities:
+      - entity: sensor.waterkotte_druck_kondensator
+        name: Druck Kondensator
+      - entity: sensor.waterkotte_druck_verdampfer
+        name: Druck Verdampfer
+      - entity: sensor.waterkotte_temp_kondensation
+        name: Temp Kondensation
+      - entity: sensor.waterkotte_temp_verdampfung
+        name: Temp Verdampfung
+      - entity: sensor.waterkotte_temp_saugleitung
+        name: Temp Saugleitung
+  - type: grid
+    title: Betriebsstunden
+    cards:
+    - type: entities
+      title: Laufzeiten
+      entities:
+      - entity: sensor.heizung_betriebsstunden_heizung
+        name: Gesamt Betrieb
+      - entity: sensor.heizung_betriebsstunden_kompressor
+        name: Kompressor
+      - entity: sensor.heizung_betriebsstunden_warmwasser_2
+        name: Warmwasser
+      - entity: sensor.betriebsstunden_stufe_2
+        name: Stufe 2
+  - type: grid
+    title: Erweitert
+    cards:
+    - type: entities
+      title: Warmwasser (Erweitert)
+      entities:
+      - entity: input_number.warmwasser_temp
+        name: Warmwasser Solltemperatur
+      - entity: input_datetime.ww_zeit_ein
+        name: WW Freigabe ein
+        icon: mdi:clock-start
+      - entity: input_datetime.ww_zeit_aus
+        name: WW Freigabe aus
+        icon: mdi:clock-end
+    - type: entities
+      title: Wartung
+      entities:
+      - entity: input_button.waterkotte_sync_time
+        name: Zeit synchronisieren
+    - type: entities
+      title: WW Boost (automatisch)
+      entities:
+      - entity: binary_sensor.ww_boost_lauft
+        name: Boost läuft
+  - type: grid
+    title: Status (Buffer)
+    cards:
+    - type: entities
+      title: DI-Buffer (Eingänge)
+      entities:
+      - entity: binary_sensor.di_pumpe_quelle
+        name: Pumpe Quelle
+      - entity: binary_sensor.di_sole_minimum
+        name: Sole-Minimum
+      - entity: binary_sensor.di_ext_abschaltung
+        name: Ext. Abschaltung
+      - entity: binary_sensor.di_ext_sollwertbeeinflussung
+        name: Ext. Sollwertbeeinflussung
+      - entity: binary_sensor.di_hochdruck_pressostat_stoerung
+        name: Hochdruck-Pressostat Störung
+      - entity: binary_sensor.di_niederdruck_pressostat_stoerung
+        name: Niederdruck-Pressostat Störung
+      - entity: binary_sensor.di_oeldruck_kompressor_stoerung
+        name: Öldruck/Motorschutz Störung
+    - type: entities
+      title: DO-Buffer (Ausgänge)
+      entities:
+      - entity: binary_sensor.do_kompressor_1
+        name: Kompressor 1
+      - entity: binary_sensor.do_pumpe_quelle
+        name: Pumpe Quelle
+      - entity: binary_sensor.do_pumpe_warmwasser
+        name: Pumpe Warmwasser / 3-Wege
+      - entity: binary_sensor.do_pumpe_heizung
+        name: Pumpe Heizung
+      - entity: binary_sensor.do_stufe_2
+        name: Stufe 2
+      - entity: binary_sensor.do_magnetventil
+        name: Magnetventil
+      - entity: binary_sensor.do_umschaltventil_kuehlung
+        name: Umschaltventil Kühlung
+    - type: entities
+      title: Betriebszustände
+      entities:
+      - entity: binary_sensor.bz_heizbetrieb
+        name: Heizbetrieb
+      - entity: binary_sensor.bz_warmwasserbetrieb
+        name: Warmwasserbetrieb
+      - entity: binary_sensor.bz_stufe_2_betrieb
+        name: Stufe-2-Betrieb
+      - entity: binary_sensor.bz_hand_betrieb
+        name: Hand-Betrieb
+      - entity: binary_sensor.bz_ext_steuerung
+        name: Ext. Steuerung
+      - entity: binary_sensor.bz_unterbrechung
+        name: Unterbrechung
+  - type: grid
+    title: Warnungen & Störungen
+    cards:
+    - type: entities
+      title: Unterbrechungen (I01–I05, 8.00)
+      entities:
+      - entity: binary_sensor.i01_unterbr_temp_quelleaus_unter_ok
+        name: I01 Temp QuelleAus < OK
+      - entity: binary_sensor.i02_unterbr_begr_hzg_ueber_ok
+        name: I02 Begr. Hzg > OK
+      - entity: binary_sensor.i03_externe_abschaltung
+        name: I03 Externe Abschaltung
+      - entity: binary_sensor.i04_unterbr_schalthaeufigkeit
+        name: I04 Schalthäufigkeit
+      - entity: binary_sensor.i05_unterbr_fuehler_quelleaus_nok
+        name: I05 Fühler QuelleAus NOK
+    - type: entities
+      title: Ausfälle (F01–F05, 8.04)
+      entities:
+      - entity: binary_sensor.ausfall_vorhanden
+        name: Ausfall vorhanden (Sammel)
+      - entity: binary_sensor.f01_ausfall_hd_pressostat
+        name: F01 HD-Pressostat
+      - entity: binary_sensor.f02_ausfall_nd_pressostat
+        name: F02 ND-Pressostat
+      - entity: binary_sensor.f03_ausfall_motorschutz_kompressor
+        name: F03 Motorschutz Kompressor
+      - entity: binary_sensor.f04_ausfall_pumpe_quelle
+        name: F04 Pumpe Quelle
+      - entity: binary_sensor.f05_ausfall_nasslauf
+        name: F05 Nasslauf
+    - type: entities
+      title: Warnungen Eingangsseite (8.01)
+      entities:
+      - entity: binary_sensor.w01_verdampfungstemp_zu_niedrig
+        name: W01 Verdampfungstemp zu niedrig
+      - entity: binary_sensor.w02_temp_quelle_austritt_zu_niedrig
+        name: W02 Temp Quelle-Austritt zu niedrig
+      - entity: binary_sensor.w03_tdiff_quelleein_quelleaus_zu_hoch
+        name: W03 TDiff QuE-QuA zu hoch
+      - entity: binary_sensor.8_01_diff_quelleaus_verdampfung_zu_hoch_maske_8
+        name: Diff QuA-Verdampfung zu hoch (Maske 8)
+      - entity: binary_sensor.w04_tdiff_quelleaustritt_verdampfung_zu_hoch
+        name: W04 TDiff QuA-Verdampfung zu hoch
+    - type: entities
+      title: Warnungen Ausgangsseite (8.02)
+      entities:
+      - entity: binary_sensor.warnaus_kondensationstemp_zu_hoch
+        name: Kondensationstemp zu hoch
+      - entity: binary_sensor.warnaus_diff_hzgvorlauf_ruecklauf_zu_niedrig
+        name: Diff HzgVL-RL zu niedrig
+      - entity: binary_sensor.warnaus_diff_hzgvorlauf_ruecklauf_zu_hoch
+        name: Diff HzgVL-RL zu hoch
+      - entity: binary_sensor.warnaus_diff_kondensation_vorlauf_zu_hoch
+        name: Diff Kondensation-Vorlauf zu hoch
+    - type: entities
+      title: Warnungen Sonstige (8.03)
+      entities:
+      - entity: binary_sensor.warnsonst_hz_ruecklauffuehler_defekt
+        name: Hz-Rücklauffühler defekt
+      - entity: binary_sensor.warnsonst_hz_vorlauffuehler_defekt
+        name: Hz-Vorlauffühler defekt
+      - entity: binary_sensor.warnsonst_aussenfuehler_defekt
+        name: Außenfühler defekt
+      - entity: binary_sensor.warnsonst_do_buffer_in_handstellung
+        name: Do-Buffer in Handstellung
+      - entity: binary_sensor.warnsonst_solestand_minimum
+        name: Solestand Minimum
+  - type: grid
+    title: Hand-Ein/Ausschaltung von Relaisausgängen
+    cards:
+    - type: entities
+      title: DO-Handkanal (Handschaltung)
+      entities:
+      - entity: sensor.do_handkanal_auswahl
+        name: Ausgewählter Relaisausgang
+      - entity: binary_sensor.do_handkanal_ein
+        name: Hand-Ein aktiv
+      - entity: sensor.waterkotte_do_handkanal
+        name: Handkanal-Nummer (roh)
+      - entity: sensor.waterkotte_do_handkanal_ein
+        name: Hand-Ein (roh)
+

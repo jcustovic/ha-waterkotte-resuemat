@@ -1,0 +1,155 @@
+# Waterkotte Resümat CD4 (8126) – Status-/Warn-/Störungs-Decode (template binary_sensors)
+# Basis: die numerischen Byte-Sensoren aus dem Node-RED-Flow (sensor.waterkotte_*_byte).
+# Einbindung z. B.:  configuration.yaml ->  template: !include waterkotte_status_templates.yaml
+# Bit-Reihenfolge MSB-first, Masken laut Handbuch (siehe docs/STATUS-BUFFERS.md).
+- binary_sensor:
+    # Menü 9 – 09.00 Betriebszustände (on = aktiv)
+    - name: "BZ Ext Steuerung"
+      state: "{{ (states('sensor.waterkotte_betriebszustaende_byte') | int(0)) | bitwise_and(128) > 0 }}"
+    - name: "BZ Unterbrechung"
+      state: "{{ (states('sensor.waterkotte_betriebszustaende_byte') | int(0)) | bitwise_and(16) > 0 }}"
+      device_class: problem
+    - name: "BZ Hand Betrieb"
+      state: "{{ (states('sensor.waterkotte_betriebszustaende_byte') | int(0)) | bitwise_and(8) > 0 }}"
+    - name: "BZ Stufe 2 Betrieb"
+      state: "{{ (states('sensor.waterkotte_betriebszustaende_byte') | int(0)) | bitwise_and(4) > 0 }}"
+      device_class: running
+    - name: "BZ Heizbetrieb"
+      state: "{{ (states('sensor.waterkotte_betriebszustaende_byte') | int(0)) | bitwise_and(2) > 0 }}"
+      device_class: running
+    - name: "BZ Warmwasserbetrieb"
+      state: "{{ (states('sensor.waterkotte_betriebszustaende_byte') | int(0)) | bitwise_and(1) > 0 }}"
+      device_class: running
+    # Menü 9 – 09.01 DO-Buffer (Ausgänge, on = Ein)
+    - name: "DO Magnetventil"
+      state: "{{ (states('sensor.waterkotte_do_buffer_byte') | int(0)) | bitwise_and(1) > 0 }}"
+      device_class: opening
+    - name: "DO Kompressor 1"
+      state: "{{ (states('sensor.waterkotte_do_buffer_byte') | int(0)) | bitwise_and(2) > 0 }}"
+      device_class: running
+    - name: "DO Umschaltventil Kuehlung"
+      state: "{{ (states('sensor.waterkotte_do_buffer_byte') | int(0)) | bitwise_and(8) > 0 }}"
+      device_class: opening
+    - name: "DO Stufe 2"
+      state: "{{ (states('sensor.waterkotte_do_buffer_byte') | int(0)) | bitwise_and(16) > 0 }}"
+      device_class: running
+    - name: "DO Pumpe Heizung"
+      state: "{{ (states('sensor.waterkotte_do_buffer_byte') | int(0)) | bitwise_and(32) > 0 }}"
+      device_class: running
+    - name: "DO Pumpe Warmwasser"
+      state: "{{ (states('sensor.waterkotte_do_buffer_byte') | int(0)) | bitwise_and(64) > 0 }}"
+      device_class: running
+    - name: "DO Pumpe Quelle"
+      state: "{{ (states('sensor.waterkotte_do_buffer_byte') | int(0)) | bitwise_and(128) > 0 }}"
+      device_class: running
+    # Menü 9 – 09.02 DI-Buffer (Pressostate: on = NOK/Störung)
+    - name: "DI Oeldruck Kompressor Stoerung"
+      state: "{{ (states('sensor.waterkotte_di_buffer_byte') | int(0)) | bitwise_and(1) > 0 }}"
+      device_class: problem
+    - name: "DI Niederdruck Pressostat Stoerung"
+      state: "{{ (states('sensor.waterkotte_di_buffer_byte') | int(0)) | bitwise_and(2) > 0 }}"
+      device_class: problem
+    - name: "DI Hochdruck Pressostat Stoerung"
+      state: "{{ (states('sensor.waterkotte_di_buffer_byte') | int(0)) | bitwise_and(4) > 0 }}"
+      device_class: problem
+    - name: "DI Pumpe Quelle"
+      state: "{{ (states('sensor.waterkotte_di_buffer_byte') | int(0)) | bitwise_and(8) > 0 }}"
+      device_class: running
+    - name: "DI Sole Minimum"
+      state: "{{ (states('sensor.waterkotte_di_buffer_byte') | int(0)) | bitwise_and(16) > 0 }}"
+    - name: "DI Ext Sollwertbeeinflussung"
+      state: "{{ (states('sensor.waterkotte_di_buffer_byte') | int(0)) | bitwise_and(64) > 0 }}"
+    - name: "DI Ext Abschaltung"
+      state: "{{ (states('sensor.waterkotte_di_buffer_byte') | int(0)) | bitwise_and(128) > 0 }}"
+    # Menü 8 – 8.00 Unterbrechungen I01–I05 (Handbuch §3.12; Bit-Zuordnung provisorisch)
+    - name: "I01 Unterbr Temp QuelleAus unter OK"
+      state: "{{ (states('sensor.waterkotte_unterbrechungen_byte') | int(0)) | bitwise_and(1) > 0 }}"
+      device_class: problem
+    - name: "I02 Unterbr Begr Hzg ueber OK"
+      state: "{{ (states('sensor.waterkotte_unterbrechungen_byte') | int(0)) | bitwise_and(2) > 0 }}"
+      device_class: problem
+    - name: "I03 Externe Abschaltung"
+      state: "{{ (states('sensor.waterkotte_unterbrechungen_byte') | int(0)) | bitwise_and(4) > 0 }}"
+      device_class: problem
+    - name: "I04 Unterbr Schalthaeufigkeit"
+      state: "{{ (states('sensor.waterkotte_unterbrechungen_byte') | int(0)) | bitwise_and(8) > 0 }}"
+      device_class: problem
+    - name: "I05 Unterbr Fuehler QuelleAus NOK"
+      state: "{{ (states('sensor.waterkotte_unterbrechungen_byte') | int(0)) | bitwise_and(16) > 0 }}"
+      device_class: problem
+    # Menü 8 – 8.01 Warnung Eingangsseite (W04 = Maske 16 live bestätigt; übrige provisorisch)
+    - name: "W01 Verdampfungstemp zu niedrig"
+      state: "{{ (states('sensor.waterkotte_warnung_eingang_byte') | int(0)) | bitwise_and(1) > 0 }}"
+      device_class: problem
+    - name: "W02 Temp Quelle Austritt zu niedrig"
+      state: "{{ (states('sensor.waterkotte_warnung_eingang_byte') | int(0)) | bitwise_and(2) > 0 }}"
+      device_class: problem
+    - name: "W03 TDiff QuelleEin QuelleAus zu hoch"
+      state: "{{ (states('sensor.waterkotte_warnung_eingang_byte') | int(0)) | bitwise_and(4) > 0 }}"
+      device_class: problem
+    - name: "8 01 Diff QuelleAus Verdampfung zu hoch Maske 8"
+      state: "{{ (states('sensor.waterkotte_warnung_eingang_byte') | int(0)) | bitwise_and(8) > 0 }}"
+      device_class: problem
+    - name: "W04 TDiff QuelleAustritt Verdampfung zu hoch"
+      state: "{{ (states('sensor.waterkotte_warnung_eingang_byte') | int(0)) | bitwise_and(16) > 0 }}"
+      device_class: problem
+    # Menü 8 – 8.02 Warnung Ausgangsseite (Handbuch §2.12)
+    - name: "WarnAus Diff Kondensation Vorlauf zu hoch"
+      state: "{{ (states('sensor.waterkotte_warnung_ausgang_byte') | int(0)) | bitwise_and(32) > 0 }}"
+      device_class: problem
+    - name: "WarnAus Diff HzgVorlauf Ruecklauf zu hoch"
+      state: "{{ (states('sensor.waterkotte_warnung_ausgang_byte') | int(0)) | bitwise_and(8) > 0 }}"
+      device_class: problem
+    - name: "WarnAus Diff HzgVorlauf Ruecklauf zu niedrig"
+      state: "{{ (states('sensor.waterkotte_warnung_ausgang_byte') | int(0)) | bitwise_and(4) > 0 }}"
+      device_class: problem
+    - name: "WarnAus Kondensationstemp zu hoch"
+      state: "{{ (states('sensor.waterkotte_warnung_ausgang_byte') | int(0)) | bitwise_and(2) > 0 }}"
+      device_class: problem
+    # Menü 8 – 8.03 Warnung Sonstige (Handbuch §2.12)
+    - name: "WarnSonst Solestand Minimum"
+      state: "{{ (states('sensor.waterkotte_warnung_sonstige_byte') | int(0)) | bitwise_and(16) > 0 }}"
+      device_class: problem
+    - name: "WarnSonst DO Buffer in Handstellung"
+      state: "{{ (states('sensor.waterkotte_warnung_sonstige_byte') | int(0)) | bitwise_and(8) > 0 }}"
+    - name: "WarnSonst Aussenfuehler defekt"
+      state: "{{ (states('sensor.waterkotte_warnung_sonstige_byte') | int(0)) | bitwise_and(4) > 0 }}"
+      device_class: problem
+    - name: "WarnSonst Hz Vorlauffuehler defekt"
+      state: "{{ (states('sensor.waterkotte_warnung_sonstige_byte') | int(0)) | bitwise_and(2) > 0 }}"
+      device_class: problem
+    - name: "WarnSonst Hz Ruecklauffuehler defekt"
+      state: "{{ (states('sensor.waterkotte_warnung_sonstige_byte') | int(0)) | bitwise_and(1) > 0 }}"
+      device_class: problem
+    # Menü 8 – 8.04 Ausfall F01–F05 (Handbuch §3.12; Bit-Zuordnung provisorisch)
+    - name: "F01 Ausfall HD Pressostat"
+      state: "{{ (states('sensor.waterkotte_ausfall_byte') | int(0)) | bitwise_and(1) > 0 }}"
+      device_class: problem
+    - name: "F02 Ausfall ND Pressostat"
+      state: "{{ (states('sensor.waterkotte_ausfall_byte') | int(0)) | bitwise_and(2) > 0 }}"
+      device_class: problem
+    - name: "F03 Ausfall Motorschutz Kompressor"
+      state: "{{ (states('sensor.waterkotte_ausfall_byte') | int(0)) | bitwise_and(4) > 0 }}"
+      device_class: problem
+    - name: "F04 Ausfall Pumpe Quelle"
+      state: "{{ (states('sensor.waterkotte_ausfall_byte') | int(0)) | bitwise_and(8) > 0 }}"
+      device_class: problem
+    - name: "F05 Ausfall Nasslauf"
+      state: "{{ (states('sensor.waterkotte_ausfall_byte') | int(0)) | bitwise_and(16) > 0 }}"
+      device_class: problem
+    # Zusammenfassung 8.04
+    - name: "Ausfall vorhanden"
+      state: "{{ (states('sensor.waterkotte_ausfall_byte') | int(0)) > 0 }}"
+      device_class: problem
+    # Menü 6 – 6.19 Handkanal Ein aktiv (nur lesen)
+    - name: "DO Handkanal Ein"
+      state: "{{ (states('sensor.waterkotte_do_handkanal_ein') | int(0)) > 0 }}"
+      device_class: running
+- sensor:
+    # Menü 6 – 6.18 Handkanal-Nummer -> Relaisausgang (Handbuch §2.11)
+    - name: "DO Handkanal Auswahl"
+      state: >-
+        {% set m = {'0':'—','1':'Magnetventil Kältekreislauf','2':'Kompressor','3':'Sammelstörmeldung',
+                    '4':'Motorventil Kühlen','5':'Stufe 2','6':'Pumpe-Heizung',
+                    '7':'Pumpe + Motorventil Warmwasser','8':'Pumpe-Quelle'} %}
+        {{ m.get(states('sensor.waterkotte_do_handkanal')|int(0)|string, 'unbekannt') }}

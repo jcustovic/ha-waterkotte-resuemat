@@ -1,0 +1,101 @@
+{
+  "id": "1794654962799",
+  "alias": "WW Boost - Start",
+  "description": "Wenn WW Ist unter 35 Grad faellt UND wir ausserhalb des normalen WW-Zeitfensters sind, wird ein/aus temporaer angepasst damit die Waermepumpe sofort WW heizt. Originalzeiten werden vorher gespeichert.",
+  "triggers": [
+    {
+      "trigger": "numeric_state",
+      "entity_id": "sensor.heizung_ww_ist_2",
+      "below": 35,
+      "for": {
+        "minutes": 2
+      }
+    }
+  ],
+  "conditions": [
+    {
+      "condition": "state",
+      "entity_id": "input_boolean.ww_boost_aktiv",
+      "state": "off"
+    },
+    {
+      "condition": "state",
+      "entity_id": "input_boolean.warmwasseronoff",
+      "state": "on"
+    },
+    {
+      "condition": "template",
+      "value_template": "{% set now_t = now().strftime('%H:%M:%S') %}{% set ein = states('input_datetime.ww_zeit_ein') %}{% set aus = states('input_datetime.ww_zeit_aus') %}{{ now_t < ein or now_t > aus }}"
+    }
+  ],
+  "actions": [
+    {
+      "action": "input_datetime.set_datetime",
+      "target": {
+        "entity_id": "input_datetime.ww_zeit_ein_gespeichert"
+      },
+      "data": {
+        "time": "{{ states('input_datetime.ww_zeit_ein') }}"
+      }
+    },
+    {
+      "action": "input_datetime.set_datetime",
+      "target": {
+        "entity_id": "input_datetime.ww_zeit_aus_gespeichert"
+      },
+      "data": {
+        "time": "{{ states('input_datetime.ww_zeit_aus') }}"
+      }
+    },
+    {
+      "action": "input_datetime.set_datetime",
+      "target": {
+        "entity_id": "input_datetime.ww_boost_gestartet"
+      },
+      "data": {
+        "datetime": "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+      }
+    },
+    {
+      "action": "input_boolean.turn_on",
+      "target": {
+        "entity_id": "input_boolean.ww_boost_aktiv"
+      }
+    },
+    {
+      "choose": [
+        {
+          "conditions": [
+            {
+              "condition": "template",
+              "value_template": "{{ now().strftime('%H:%M:%S') < states('input_datetime.ww_zeit_ein') }}"
+            }
+          ],
+          "sequence": [
+            {
+              "action": "input_datetime.set_datetime",
+              "target": {
+                "entity_id": "input_datetime.ww_zeit_ein"
+              },
+              "data": {
+                "time": "{% set t = now() - timedelta(minutes=5) %}{% if t.day != now().day %}00:00:00{% else %}{{ t.strftime('%H:%M:%S') }}{% endif %}"
+              }
+            }
+          ]
+        }
+      ],
+      "default": [
+        {
+          "action": "input_datetime.set_datetime",
+          "target": {
+            "entity_id": "input_datetime.ww_zeit_aus"
+          },
+          "data": {
+            "time": "{% set t = now() + timedelta(minutes=30) %}{% if t.day != now().day %}23:59:00{% else %}{{ t.strftime('%H:%M:%S') }}{% endif %}"
+          }
+        }
+      ]
+    }
+  ],
+  "mode": "single"
+}
