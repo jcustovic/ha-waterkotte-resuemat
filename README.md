@@ -33,8 +33,9 @@ Node-Red:
 
 Home Assistant:
 
-<img width="454" height="1150" alt="image" src="https://github.com/user-attachments/assets/dfe4b228-b4cf-4e25-abcf-7a442aedcf9e" />
-<img width="451" height="384" alt="image" src="https://github.com/user-attachments/assets/a5154e80-98a4-440b-be5b-3f688fd51c08" />
+
+<img width="1647" height="931" alt="Screenshot 2026-11-19 at 19 13 31" src="https://github.com/user-attachments/assets/6abd0648-8fc0-4b4e-b322-0a2d25fce7bc" />
+<img width="1647" height="890" alt="Screenshot 2026-11-19 at 19 13 52" src="https://github.com/user-attachments/assets/2ddc1fdc-fca0-463d-8f32-2368b439424f" />
 
 --
 
